@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3i0h7ctlmm2r"]
+
+[ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_o8514"]
+[ext_resource type="Script" path="res://Boss/boss.gd" id="1_v6tmk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
+radius = 32.0156
+
+[node name="Boss" type="CharacterBody2D"]
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_v6tmk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.113725, 0.105882, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_o8514")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x37nr")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
