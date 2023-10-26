@@ -4,17 +4,18 @@
 [ext_resource type="Script" path="res://Boss/boss.gd" id="1_v6tmk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
-radius = 32.0156
+radius = 9.48683
 
 [node name="Boss" type="CharacterBody2D"]
 rotation = 1.5708
 collision_layer = 2
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_v6tmk")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0.113725, 0.105882, 1)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.156, 0.156)
 texture = ExtResource("1_o8514")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -27,5 +28,10 @@ one_shot = true
 [node name="AttackCooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="AfterSpinCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]

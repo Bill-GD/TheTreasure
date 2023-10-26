@@ -1,7 +1,10 @@
 extends RigidBody2D
 
 var move_direction: Vector2 = Vector2.ZERO
-const SPEED: float = 800.0
+const BASE_SPEED: float = 800.0
+
+# use this to override speed, else use default speed
+var speed: float = BASE_SPEED
 
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Sprite2D = $Sprite
@@ -11,7 +14,7 @@ func _ready():
 	gravity_scale = 0
 	collision.rotation = move_direction.angle()
 	sprite.rotation = collision.rotation
-	linear_velocity = move_direction * SPEED
+	linear_velocity = move_direction * speed
 
 # func _process(_delta):
 # 	print(collision.rotation)

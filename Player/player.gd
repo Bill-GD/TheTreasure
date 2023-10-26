@@ -1,14 +1,17 @@
 extends CharacterBody2D
 
+@onready var collision: CollisionShape2D = $Collision
+@onready var sprite: Sprite2D = $Sprite
+
+var bullet_scene: PackedScene = load("res://Bullet/bullet.tscn")
+
 const BASE_SPEED: float = 150
 const BASE_HP: int = 20
 const BASE_ARMOR: int = 10
 const SPRINT_SPEED: float = BASE_SPEED * 2
 
-@onready var collision: CollisionShape2D = $Collision
-@onready var sprite: Sprite2D = $Sprite
-
-var bullet_scene: PackedScene = load("res://Bullet/bullet.tscn")
+@onready var current_hp: int = BASE_HP
+@onready var current_armor: int = BASE_ARMOR
 
 func _physics_process(_delta):
 	# movement
