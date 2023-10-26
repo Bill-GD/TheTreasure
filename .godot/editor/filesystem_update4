@@ -1,5 +1,7 @@
+res://Bullet/bullet.gd
 res://Player/player.tscn
-res://Player/player.gd
-res://Boss/boss.tscn
 res://Boss/boss.gd
+res://Boss/boss.tscn
 res://Level_1/level_1.tscn
+res://Bullet/bullet.tscn
+res://Player/player.gd

@@ -12,12 +12,12 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_v6tmk")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0.113725, 0.105882, 1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_o8514")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x37nr")
 
 [node name="AttackTimer" type="Timer" parent="."]

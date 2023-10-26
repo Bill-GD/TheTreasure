@@ -19,3 +19,7 @@ shape = SubResource("CircleShape2D_xwv8d")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
