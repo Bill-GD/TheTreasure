@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtr7u42wps8dk"]
+
+[ext_resource type="Script" path="res://HealthBar/health_bar.gd" id="1_msiwk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrk4v"]
+
+[node name="HealthBar" type="ProgressBar"]
+offset_left = -2.0
+offset_top = 5.0
+offset_right = 218.0
+offset_bottom = 66.0
+rotation = -1.57079
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 200
+theme_override_styles/fill = SubResource("StyleBoxFlat_mrk4v")
+step = 1.0
+show_percentage = false
+script = ExtResource("1_msiwk")

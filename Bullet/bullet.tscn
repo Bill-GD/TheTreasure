@@ -3,18 +3,16 @@
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_5qfdj"]
 [ext_resource type="Texture2D" uid="uid://bio0dcjbwxhq8" path="res://Assets/bullet.png" id="2_l1pei"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wh5ga"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nu4m6"]
 radius = 4.0
 height = 16.0
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="RigidBody2D" groups=["bullet"]]
 collision_layer = 4
 collision_mask = 0
+max_contacts_reported = 3
+contact_monitor = true
 script = ExtResource("1_5qfdj")
-
-[node name="Collision" type="CollisionShape2D" parent="."]
-rotation = -1.5708
-shape = SubResource("CapsuleShape2D_wh5ga")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_l1pei")
@@ -22,4 +20,14 @@ texture = ExtResource("2_l1pei")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(0.798791, 0.392034)
 
+[node name="Collision" type="CollisionShape2D" parent="."]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_nu4m6")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

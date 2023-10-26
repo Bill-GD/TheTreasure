@@ -1,17 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3i0h7ctlmm2r"]
+[gd_scene load_steps=7 format=3 uid="uid://d3i0h7ctlmm2r"]
 
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_o8514"]
 [ext_resource type="Script" path="res://Boss/boss.gd" id="1_v6tmk"]
+[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://HealthBar/health_bar.tscn" id="3_lxmij"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s4okl"]
+radius = 651.007
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o7sab"]
+radius = 345.023
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
-radius = 9.48683
 
-[node name="Boss" type="CharacterBody2D"]
+[node name="Boss" type="CharacterBody2D" groups=["boss"]]
 rotation = 1.5708
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_v6tmk")
+
+[node name="DetectRange" type="Area2D" parent="."]
+
+[node name="DetectRangeShape" type="CollisionShape2D" parent="DetectRange"]
+shape = SubResource("CircleShape2D_s4okl")
+
+[node name="CloseRange" type="Area2D" parent="."]
+
+[node name="CloseRangeShape" type="CollisionShape2D" parent="CloseRange"]
+shape = SubResource("CircleShape2D_o7sab")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 modulate = Color(1, 0.113725, 0.105882, 1)
@@ -32,6 +48,16 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="HealthBar" parent="." instance=ExtResource("3_lxmij")]
+offset_left = -17.0
+offset_top = 5.00006
+offset_right = 203.0
+
+[connection signal="died" from="." to="." method="_on_died"]
+[connection signal="body_entered" from="DetectRange" to="." method="_on_detect_range_body_entered"]
+[connection signal="body_exited" from="DetectRange" to="." method="_on_detect_range_body_exited"]
+[connection signal="body_entered" from="CloseRange" to="." method="_on_close_range_body_entered"]
+[connection signal="body_exited" from="CloseRange" to="." method="_on_close_range_body_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
