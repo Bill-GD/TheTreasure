@@ -1,9 +1,9 @@
+CollisionShape2D
+Area2D
 Timer
 ProgressBar
 CharacterBody2D
-CollisionShape2D
 Sprite2D
-Area2D
 VisibleOnScreenNotifier2D
 RigidBody2D
 Camera2D

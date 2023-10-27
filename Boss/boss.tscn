@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3i0h7ctlmm2r"]
+[gd_scene load_steps=8 format=3 uid="uid://d3i0h7ctlmm2r"]
 
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_o8514"]
 [ext_resource type="Script" path="res://Boss/boss.gd" id="1_v6tmk"]
@@ -11,6 +11,8 @@ radius = 651.007
 radius = 345.023
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btnb1"]
 
 [node name="Boss" type="CharacterBody2D" groups=["boss"]]
 rotation = 1.5708
@@ -53,6 +55,13 @@ offset_left = -17.0
 offset_top = 5.00006
 offset_right = 203.0
 
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collision" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_btnb1")
+
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="body_entered" from="DetectRange" to="." method="_on_detect_range_body_entered"]
 [connection signal="body_exited" from="DetectRange" to="." method="_on_detect_range_body_exited"]
@@ -61,3 +70,4 @@ offset_right = 203.0
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

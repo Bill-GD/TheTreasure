@@ -1,8 +1,8 @@
 extends ProgressBar
 
 func update_health(current_health: int, max_health: int):
-	value = current_health
 	max_value = max_health
+	value = current_health
 	var sb = StyleBoxFlat.new()
 	var health_percent = float(current_health) / float(max_health)
 

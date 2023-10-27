@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://o47pxp8rypel"]
+[gd_scene load_steps=7 format=3 uid="uid://o47pxp8rypel"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_wrex3"]
@@ -7,9 +7,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_fu2e1"]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 rotation = 1.5708
-collision_mask = 7
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_q23yu")
 
@@ -44,4 +46,12 @@ script = ExtResource("4_gvwii")
 wait_time = 3.0
 one_shot = true
 
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="Collision" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_fu2e1")
+
 [connection signal="timeout" from="ArmorRegen" to="." method="_on_armor_regen_timeout"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

@@ -13,13 +13,13 @@ extends CharacterBody2D
 signal died
 
 const BASE_SPEED: float = 150
-const BASE_HP: int = 20
-const BASE_ARMOR: int = 10
+const BASE_HP: int = 50
+const BASE_ARMOR: int = 20
 const SPRINT_SPEED: float = BASE_SPEED * 2
 
 @onready var current_hp: int = BASE_HP
 @onready var current_armor: int = BASE_ARMOR
-var damage: int = 0
+var damage: int = 3
 
 func _ready():
 	armor_bar.update_armor(current_armor, BASE_ARMOR)
@@ -56,6 +56,7 @@ func _physics_process(delta):
 
 	if current_hp <= 0:
 		died.emit()
+		print('player died')
 	
 	if current_armor < BASE_ARMOR and $ArmorRegenDelay.is_stopped() and $ArmorRegen.is_stopped():
 		$ArmorRegen.start()
@@ -64,10 +65,11 @@ func shoot_bullet():
 	var shoot_direction: Vector2 = (get_global_mouse_position() - position).normalized()
 
 	var bullet = bullet_scene.instantiate() as RigidBody2D
-	bullet.position = position + shoot_direction * collision.shape.get_rect().size.x
+	bullet.position = position + shoot_direction * collision.shape.get_rect().size.x * 1.1
 	bullet.move_direction = shoot_direction
 
-	bullet.set_collision_mask_value(2, true)
+	# bullet.set_collision_mask_value(2, true)
+	bullet.shooter = self
 
 	get_parent().add_child(bullet)
 
@@ -75,3 +77,16 @@ func _on_armor_regen_timeout():
 	current_armor += 1
 	armor_bar.update_armor(current_armor, BASE_ARMOR)
 	if current_armor == BASE_ARMOR: $ArmorRegen.stop()
+
+func _on_hurt_box_body_entered(body: Node2D):
+	if body is Bullet:
+		if current_armor > 0:
+			current_armor -= body.actual_damage
+			armor_bar.update_armor(current_armor, BASE_ARMOR)
+		else: current_hp -= body.actual_damage
+			
+		armor_regen_timer.stop()
+		armor_regen_delay_timer.start()
+
+		health_bar.update_health(current_hp, BASE_HP)
+		body.queue_free()

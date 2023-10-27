@@ -1,12 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bidysi0fe05rn"]
 
-[ext_resource type="PackedScene" uid="uid://d3i0h7ctlmm2r" path="res://Boss/boss.tscn" id="1_422ae"]
+[ext_resource type="Script" path="res://Level_1/level_1.gd" id="1_ou3yk"]
 [ext_resource type="PackedScene" uid="uid://o47pxp8rypel" path="res://Player/player.tscn" id="2_81jet"]
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_ou3yk")
 
 [node name="Player" parent="." instance=ExtResource("2_81jet")]
 position = Vector2(863, 490)
-
-[node name="Boss" parent="." instance=ExtResource("1_422ae")]
-position = Vector2(264, 171)
