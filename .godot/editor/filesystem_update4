@@ -1,10 +1,3 @@
-res://Player/player.gd
-res://Player/player.tscn
 res://Boss/boss.gd
-res://Level_1/level_1.tscn
-res://Bullet/bullet.tscn
-res://Boss/boss.tscn
-res://HealthBar/health_bar.tscn
-res://HealthBar/health_bar.gd
 res://Bullet/bullet.gd
-res://Level_1/level_1.gd
+res://Enemy/enemy.gd
