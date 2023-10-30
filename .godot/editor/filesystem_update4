@@ -1,3 +1,11 @@
+res://Player/player.gd
 res://Boss/boss.gd
-res://Bullet/bullet.gd
 res://Enemy/enemy.gd
+res://Enemy/enemy.tscn
+res://Level_1/level_1.tscn
+res://Player/player.tscn
+res://Bullet/bullet.tscn
+res://Boss/boss.tscn
+res://Level_1/level_1.gd
+res://HealthBar/health_bar.gd
+res://Bullet/bullet.gd

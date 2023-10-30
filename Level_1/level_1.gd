@@ -8,4 +8,4 @@ func _ready():
 	boss.level = 1
 	boss.position = Vector2(500, 500)
 
-	add_child(boss)
+	# add_child(boss)

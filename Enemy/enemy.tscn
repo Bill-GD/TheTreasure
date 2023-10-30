@@ -1,41 +1,39 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://bbcofsvyw517t"]
 
-[ext_resource path="res://enemy.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_jenkf"]
+[ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/enemy.png" id="2_fe7ki"]
+[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://HealthBar/health_bar.tscn" id="3_7ori0"]
 
-[sub_resource type="CollisionShape2D" id=1]
-shape = SubResource(  )
+[sub_resource type="CircleShape2D" id="CircleShape2D_pds5s"]
+radius = 15.0
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 16
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ulcu"]
+radius = 15.0
 
-[sub_resource type="Area2D" id=3]
+[node name="Enemy" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 1
-position = Vector2( 0, 0 )
+script = ExtResource("1_jenkf")
 
-[sub_resource type="AnimatedSprite" id=4]
-frames = [ext_resource( 5 )]
-fps = 5
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+scale = Vector2(0.403101, 0.387097)
+texture = ExtResource("2_fe7ki")
 
-[sub_resource type="PackedScene" id=5]
-subpath = "sprites/enemy.png"
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pds5s")
 
-[node name="Enemy" type="KinematicBody2D"]
-script = ExtResource( 1 )
-collision_layer = 2
-collision_mask = 1
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
-[node name="CollisionShape2D" parent="Enemy"]
-shape = SubResource( 1 )
+[node name="Collision" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_5ulcu")
 
-[node name="CollisionShape2D2" parent="Enemy"]
-shape = SubResource( 2 )
+[node name="HealthBar" parent="." instance=ExtResource("3_7ori0")]
+offset_left = -6.0
+offset_top = -21.0
+offset_right = 214.0
+offset_bottom = 40.0
+rotation = 0.0
 
-[node name="Area2D" parent="Enemy"]
-position = Vector2( 0, 0 )
-collision_layer = 2
-collision_mask = 1
-
-[node name="AnimatedSprite" parent="Enemy"]
-frames = [ext_resource( 4 )]
-fps = 5
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
