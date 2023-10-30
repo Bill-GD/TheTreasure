@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtr7u42wps8dk"]
 
-[ext_resource type="Script" path="res://HealthBar/health_bar.gd" id="1_msiwk"]
+[ext_resource type="Script" path="res://OtherComponents/HealthBar/health_bar.gd" id="1_msiwk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrk4v"]
 

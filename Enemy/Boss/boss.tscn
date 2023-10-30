@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3i0h7ctlmm2r"]
+
+[ext_resource type="Script" path="res://Enemy/Boss/boss.gd" id="1_hfbkv"]
+[ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="2_mxe4o"]
+[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_udodu"]
+[ext_resource type="Script" path="res://Enemy/EnemyHurtBox.gd" id="4_fatfr"]
+[ext_resource type="PackedScene" uid="uid://d356moy0s5ygo" path="res://Enemy/player_detection_component.tscn" id="5_djr86"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btnb1"]
+
+[node name="Boss" type="CharacterBody2D" groups=["boss"]]
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_hfbkv")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.113725, 0.105882, 1)
+scale = Vector2(0.156, 0.156)
+texture = ExtResource("2_mxe4o")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x37nr")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="AfterSpinCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_fatfr")
+
+[node name="Collision" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_btnb1")
+
+[node name="PlayerDetectionComponent" parent="." instance=ExtResource("5_djr86")]
+
+[node name="HealthBar" parent="." instance=ExtResource("3_udodu")]
+offset_left = -18.0
+offset_top = 5.00006
+offset_right = 202.0
+
+[connection signal="died" from="." to="." method="_on_died"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]

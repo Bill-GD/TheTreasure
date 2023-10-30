@@ -3,37 +3,39 @@ extends CharacterBody2D
 
 @onready var health_bar: ProgressBar = $HealthBar
 
-const BASE_SPEED: float = 180
+const BASE_SPEED: float = 100
 const BASE_HP: int = 20
 const BASE_DAMAGE: int = 2
-const MAX_HEALTH: int = 20
 
 var target: Player
-# var velocity: Vector2
-var health: int
+var level: int = 1
+@onready var total_hp: int = BASE_HP * level
+@onready var current_hp: int = total_hp * level
+var player_detected: bool = false
+var player_close_range: bool = false
+
+signal died
 
 func _ready():
-    target = get_node("../Player/player.tscn")
-    health = MAX_HEALTH
-    health_bar.update_health(health, MAX_HEALTH)
+	target = get_parent().get_node("Player")
+	health_bar.update_health(current_hp, total_hp)
+	$PlayerDetectionComponent.connect('player_detection_changed', _on_player_detection_changed)
 
 func _process(_delta):
-    if target != null:
-        velocity = (target.position - position).normalized() * BASE_SPEED
-        move_and_slide()
+	if target != null:
+		velocity = (target.position - position).normalized() * BASE_SPEED
+		move_and_slide()
 
-func take_damage(amount: int):
-    health -= amount
-    if health <= 0:
-        die()
+	if current_hp <= 0:
+		died.emit()
 
-func die():
-    # Xử lý khi enemy bị tiêu diệt
-    queue_free()
+# func take_damage(amount: int):
+# 	current_hp -= amount
+# 	if current_hp <= 0:
+# 		die()
 
-func _on_hurt_box_body_entered(body: Node2D):
-    if body is Bullet and body.shooter is Player:
-        take_damage(body.actual_damage)
+func _on_died():
+	queue_free()
 
-        health_bar.update_health(health, MAX_HEALTH)
-        body.queue_free()
+func _on_player_detection_changed():
+	pass

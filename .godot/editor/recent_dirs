@@ -1,8 +1,8 @@
-res://Enemy
-res://Assets
+res://OtherComponents/DamageText
 res://Player
-res://HealthBar
+res://Enemy
+res://Enemy/Boss
+res://Assets
 res://Bullet
 res://Level_1
-res://Boss
 D:/Microsoft VS Code

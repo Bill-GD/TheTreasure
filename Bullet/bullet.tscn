@@ -1,10 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgslno0gv6x0u"]
+[gd_scene load_steps=7 format=3 uid="uid://bgslno0gv6x0u"]
 
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_5qfdj"]
 [ext_resource type="Texture2D" uid="uid://bio0dcjbwxhq8" path="res://Assets/bullet.png" id="2_l1pei"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pdvf"]
+atlas = ExtResource("2_l1pei")
+region = Rect2(0, 0, 16, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vigfa"]
+atlas = ExtResource("2_l1pei")
+region = Rect2(17, 0, 16, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8f5j8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pdvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vigfa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nu4m6"]
-radius = 4.0
+radius = 3.0
 height = 16.0
 
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
@@ -14,8 +36,8 @@ max_contacts_reported = 3
 contact_monitor = true
 script = ExtResource("1_5qfdj")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_l1pei")
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8f5j8")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 rotation = 1.57079
@@ -25,4 +47,5 @@ shape = SubResource("CapsuleShape2D_nu4m6")
 wait_time = 10.0
 one_shot = true
 
+[connection signal="hit" from="." to="." method="_on_hit"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

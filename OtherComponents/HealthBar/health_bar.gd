@@ -1,3 +1,4 @@
+class_name HealthBar
 extends ProgressBar
 
 func update_health(current_health: int, max_health: int):

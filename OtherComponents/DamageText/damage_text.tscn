@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://crp7x78pkics5"]
+
+[ext_resource type="Script" path="res://OtherComponents/DamageText/damage_text.gd" id="1_3rosg"]
+
+[node name="DamageText" type="Label"]
+z_index = 3
+offset_right = 281.0
+offset_bottom = 276.0
+rotation = -6.28319
+scale = Vector2(0.025, 0.025)
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 8
+theme_override_constants/shadow_offset_y = 8
+theme_override_font_sizes/font_size = 400
+text = "12"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_3rosg")
+
+[node name="DisplayTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="timeout" from="DisplayTimer" to="." method="_on_display_timer_timeout"]

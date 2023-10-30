@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Sprite2D = $Sprite
-@onready var health_bar: ProgressBar = $HealthBar
+@onready var health_bar: HealthBar = $HealthBar
 @onready var armor_bar: ProgressBar = $ArmorBar
 @onready var armor_regen_timer: Timer = $ArmorRegen
 @onready var armor_regen_delay_timer: Timer = $ArmorRegenDelay
@@ -33,16 +33,7 @@ func _physics_process(delta):
 	
 	velocity = direction * (SPRINT_SPEED if Input.is_key_pressed(KEY_SHIFT) else BASE_SPEED)
 	# move_and_slide()
-	var collision_detected = move_and_collide(velocity * delta)
-
-	# collision
-	# if collision_detected:
-	# 	var collider = collision_detected.get_collider() as Node2D
-	# 	print('player has collision')
-	# 	if collider is Bullet:
-	# 		current_hp -= 1
-	# 		health_bar.update_health(current_hp, BASE_HP)
-	# 		collider.queue_free()
+	move_and_collide(velocity * delta)
 
 	# aiming & rotation
 	sprite.rotation = (get_global_mouse_position() - global_position).angle()
@@ -53,10 +44,6 @@ func _physics_process(delta):
 		shoot_bullet()
 		$AttackCooldown.start()
 	# sound ?
-
-	if current_hp <= 0:
-		died.emit()
-		print('player died')
 	
 	if current_armor < BASE_ARMOR and $ArmorRegenDelay.is_stopped() and $ArmorRegen.is_stopped():
 		$ArmorRegen.start()
@@ -78,15 +65,5 @@ func _on_armor_regen_timeout():
 	armor_bar.update_armor(current_armor, BASE_ARMOR)
 	if current_armor == BASE_ARMOR: $ArmorRegen.stop()
 
-func _on_hurt_box_body_entered(body: Node2D):
-	if body is Bullet:
-		if current_armor > 0:
-			current_armor -= body.actual_damage
-			armor_bar.update_armor(current_armor, BASE_ARMOR)
-		else: current_hp -= body.actual_damage
-			
-		armor_regen_timer.stop()
-		armor_regen_delay_timer.start()
-
-		health_bar.update_health(current_hp, BASE_HP)
-		body.queue_free()
+func _on_died():
+	queue_free()

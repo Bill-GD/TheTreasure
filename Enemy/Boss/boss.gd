@@ -9,8 +9,6 @@ var tween: Tween
 @export var player: Player
 var bullet_scene: PackedScene = load("res://Bullet/bullet.tscn")
 
-signal died
-
 const BASE_SPEED: float = 150
 const BASE_HP: int = 200
 const BASE_DAMAGE: int = 5
@@ -37,6 +35,8 @@ enum ATTACKS {
 var current_attack: ATTACKS
 var available_attacks = []
 
+signal died
+
 func _ready():
 	print(current_hp)
 	health_bar.update_health(current_hp, total_hp)
@@ -45,33 +45,20 @@ func _ready():
 	player = get_parent().get_node('Player') as Player
 	$AttackCooldown.start()
 
+	$PlayerDetectionComponent.connect('player_detection_changed', _on_player_detection_changed)
+
 func _physics_process(delta):
 	# movement: navigation or custom movement
 	# move_and_slide()
-	var collision_detected = move_and_collide(velocity * delta)
-
-	# collision
-	# collision_count = 0
-	# while collision_detected and collision_count < 3:
-	# 	var collider = collision.get_collider() as Node2D
-	# 	print('boss has collision')
-	# 	if collider is Bullet:
-	# 		current_hp -= 1
-	# 		health_bar.update_health(current_hp, BASE_HP)
-	# 		collider.queue_free()
-	# 		break
-	# 	else: collision_count += 1
-	
-	# collision
+	move_and_collide(velocity * delta)
 
 	# aiming & rotation -> get player position
-
-	# attacking
-	# if player_detected:
 	if is_aiming:
 		sprite.rotation = (player.global_position - global_position).angle()
 		collision.rotation = sprite.rotation
 		# look_at(player.global_position)
+
+	# attacking
 	if is_attacking:
 		if current_attack == ATTACKS.DASH and (get_last_slide_collision() or (global_position - pos_before_attack).length() > 200):
 			velocity = Vector2.ZERO
@@ -149,38 +136,17 @@ func spin():
 	tween.connect('finished', _on_tween_finished)
 	tween.play()
 
-
 func _on_tween_finished():
 	# print('tween finished')
 	if tween: tween.kill()
 	is_attacking = false
 	$AfterSpinCooldown.start()
 
-func _on_detect_range_body_entered(body: Node2D):
-	if player_close_range:
-		player_detected = true
-		return
-	player_detected = body is Player
-	available_attacks = ['DASH']
-
-func _on_detect_range_body_exited(body: Node2D):
-	player_detected = not (body is Player)
-	available_attacks = []
-
-func _on_close_range_body_entered(body: Node2D):
-	player_close_range = body is Player
-	available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
-
-func _on_close_range_body_exited(body: Node2D):
-	player_close_range = not (body is Player)
-	available_attacks = ['DASH']
-
 func _on_died():
 	queue_free()
 
-func _on_hurt_box_body_entered(body: Node2D):
-	if body is Bullet:
-		current_hp -= body.actual_damage
-		health_bar.update_health(current_hp, total_hp)
-		print('Boss HP: %s' % current_hp)
-	body.queue_free()
+func _on_player_detection_changed():
+	# attacks
+	if not player_detected: available_attacks = []
+	if player_detected and not player_close_range: available_attacks = ['DASH']
+	if player_close_range: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']

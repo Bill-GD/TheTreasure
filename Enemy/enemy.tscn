@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbcofsvyw517t"]
+[gd_scene load_steps=8 format=3 uid="uid://bbcofsvyw517t"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_jenkf"]
 [ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/enemy.png" id="2_fe7ki"]
-[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://HealthBar/health_bar.tscn" id="3_7ori0"]
+[ext_resource type="Script" path="res://Enemy/EnemyHurtBox.gd" id="3_d0pnk"]
+[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="5_2lkjo"]
+[ext_resource type="PackedScene" uid="uid://d356moy0s5ygo" path="res://Enemy/player_detection_component.tscn" id="5_f8l3u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pds5s"]
 radius = 15.0
@@ -25,15 +27,19 @@ shape = SubResource("CircleShape2D_pds5s")
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
+script = ExtResource("3_d0pnk")
 
 [node name="Collision" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_5ulcu")
 
-[node name="HealthBar" parent="." instance=ExtResource("3_7ori0")]
-offset_left = -6.0
-offset_top = -21.0
-offset_right = 214.0
-offset_bottom = 40.0
+[node name="PlayerDetectionComponent" parent="." instance=ExtResource("5_f8l3u")]
+
+[node name="HealthBar" parent="." instance=ExtResource("5_2lkjo")]
+offset_left = -5.0
+offset_top = -27.0
+offset_right = 215.0
+offset_bottom = 34.0
 rotation = 0.0
 
-[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="died" from="." to="." method="_on_died"]
+[connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]

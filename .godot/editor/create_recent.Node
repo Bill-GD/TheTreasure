@@ -1,10 +1,11 @@
+Timer
+Label
+ProgressBar
+Area2D
 Sprite2D
 CollisionShape2D
 CharacterBody2D
 AnimatedSprite2D
-Area2D
-Timer
-ProgressBar
 VisibleOnScreenNotifier2D
 RigidBody2D
 Camera2D
