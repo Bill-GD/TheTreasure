@@ -5,7 +5,7 @@ extends Area2D
 @onready var health_bar: HealthBar = get_parent().get_node('HealthBar')
 
 func _on_body_entered(body:Node2D):
-	# if player:
+	if body != null:
 		if body is Bullet and body.shooter is Player:
 			body.hit.emit()
 			parent.current_hp -= body.actual_damage

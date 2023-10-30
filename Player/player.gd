@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var armor_regen_delay_timer: Timer = $ArmorRegenDelay
 
 @export var bullet_scene: PackedScene = load("res://Bullet/bullet.tscn")
+var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
 
 signal died
 
@@ -17,13 +18,17 @@ const BASE_HP: int = 50
 const BASE_ARMOR: int = 20
 const SPRINT_SPEED: float = BASE_SPEED * 2
 
-@onready var current_hp: int = BASE_HP
-@onready var current_armor: int = BASE_ARMOR
-var damage: int = 3
+var level: int = 1
+var total_hp: int = BASE_HP + 10 * (level - 1)
+var total_armor: int = BASE_ARMOR + 2 * (level - 1)
+
+@onready var current_hp: int = total_hp
+@onready var current_armor: int = total_armor
+@onready var damage: int = level
 
 func _ready():
-	armor_bar.update_armor(current_armor, BASE_ARMOR)
-	health_bar.update_health(current_hp, BASE_HP)
+	armor_bar.update_armor(current_armor, total_armor)
+	health_bar.update_health(current_hp, total_hp)
 	# health_bar.font_color = Color(0, 1, 0, 1)
 	# print(collision.shape.get_rect().size)
 
@@ -65,5 +70,19 @@ func _on_armor_regen_timeout():
 	armor_bar.update_armor(current_armor, BASE_ARMOR)
 	if current_armor == BASE_ARMOR: $ArmorRegen.stop()
 
+	var damage_text: DamageText = damage_text_scene.instantiate()
+	damage_text.text = '1'
+	damage_text.position = global_position
+	damage_text.add_theme_color_override("font_color", Color(0.4, 0.4, 0.4))
+	get_parent().add_child(damage_text)
+
 func _on_died():
 	queue_free()
+
+func level_up():
+	level += 1
+	total_hp= BASE_HP + 10 * (level - 1)
+	total_armor = BASE_ARMOR + 2 * (level - 1)
+	current_hp = total_hp
+	current_armor = total_armor
+	damage = level

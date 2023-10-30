@@ -2,6 +2,8 @@ class_name Enemy
 extends CharacterBody2D
 
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var collision: CollisionShape2D = $Collision
+@onready var sprite: Sprite2D = $Sprite
 
 const BASE_SPEED: float = 100
 const BASE_HP: int = 20

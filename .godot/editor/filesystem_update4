@@ -11,3 +11,5 @@ res://Enemy/EnemyHurtBox.gd
 res://Player/PlayerHurtBox.gd
 res://Enemy/enemy.gd
 res://Level_1/level_1.gd
+res://Player/armor_bar.gd
+res://Player/player.gd
