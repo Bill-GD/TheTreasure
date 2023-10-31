@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Enemy/Boss/boss.gd" id="1_hfbkv"]
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="2_mxe4o"]
+[ext_resource type="Script" path="res://Enemy/enemy_hurt_box.gd" id="3_024jo"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_udodu"]
-[ext_resource type="Script" path="res://Enemy/EnemyHurtBox.gd" id="4_fatfr"]
 [ext_resource type="PackedScene" uid="uid://d356moy0s5ygo" path="res://Enemy/player_detection_component.tscn" id="5_djr86"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
@@ -39,7 +39,7 @@ one_shot = true
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 4
-script = ExtResource("4_fatfr")
+script = ExtResource("3_024jo")
 
 [node name="Collision" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_btnb1")
