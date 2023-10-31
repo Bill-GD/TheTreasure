@@ -15,8 +15,8 @@ func spawn_boss():
 	boss.position = Vector2(500, 500)
 	boss.connect('died', _on_boss_died)
 
-	add_child(boss)
-	print('Boss spawned at: %s' % get_node('Boss').position)
+	# add_child(boss)
+	# print('Boss spawned at: %s' % get_node('Boss').position)
 
 func _on_boss_died():
 	boss_count += 1

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://3nuoac6nuewn"]
+
+[ext_resource type="Script" path="res://Enemy/player_detection.gd" id="1_6lp75"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x71db"]
+radius = 400.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6u3vj"]
+radius = 200.0
+
+[node name="Enemy_PlayerDetection" type="Node2D"]
+script = ExtResource("1_6lp75")
+
+[node name="DetectRange" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="DetectRangeShape" type="CollisionShape2D" parent="DetectRange"]
+shape = SubResource("CircleShape2D_x71db")
+
+[node name="CloseRange" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CloseRangeShape" type="CollisionShape2D" parent="CloseRange"]
+shape = SubResource("CircleShape2D_6u3vj")
+
+[connection signal="player_detection_changed" from="." to="." method="_on_player_detection_changed"]
+[connection signal="body_entered" from="DetectRange" to="." method="_on_detect_range_body_entered"]
+[connection signal="body_exited" from="DetectRange" to="." method="_on_detect_range_body_exited"]
+[connection signal="body_entered" from="CloseRange" to="." method="_on_close_range_body_entered"]
+[connection signal="body_exited" from="CloseRange" to="." method="_on_close_range_body_exited"]

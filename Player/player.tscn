@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://o47pxp8rypel"]
+[gd_scene load_steps=10 format=3 uid="uid://o47pxp8rypel"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_wrex3"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_fvq8p"]
 [ext_resource type="Script" path="res://Player/armor_bar.gd" id="4_gvwii"]
 [ext_resource type="Script" path="res://Player/player_hurt_box.gd" id="5_7ihcb"]
+[ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="6_1qs5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
 
@@ -55,8 +56,10 @@ script = ExtResource("4_gvwii")
 wait_time = 3.0
 one_shot = true
 
+[node name="SingleBulletAttack" parent="." instance=ExtResource("6_1qs5d")]
+
 [node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 script = ExtResource("5_7ihcb")
 
@@ -66,3 +69,4 @@ shape = SubResource("CircleShape2D_fu2e1")
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="timeout" from="ArmorRegen" to="." method="_on_armor_regen_timeout"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
+[connection signal="mouse_entered" from="HurtBox" to="HurtBox" method="_on_mouse_entered"]

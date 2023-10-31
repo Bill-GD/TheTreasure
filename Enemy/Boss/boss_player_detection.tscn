@@ -1,27 +1,27 @@
 [gd_scene load_steps=4 format=3 uid="uid://d356moy0s5ygo"]
 
-[ext_resource type="Script" path="res://Enemy/player_detection_component.gd" id="1_il5ll"]
+[ext_resource type="Script" path="res://Enemy/player_detection.gd" id="1_1kntc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lrco6"]
-radius = 651.007
+[sub_resource type="CircleShape2D" id="CircleShape2D_23lkx"]
+radius = 600.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_y1cn4"]
-radius = 345.023
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdeum"]
+radius = 300.0
 
-[node name="PlayerDetectionComponent" type="Node2D"]
-script = ExtResource("1_il5ll")
+[node name="Boss_PlayerDetection" type="Node2D"]
+script = ExtResource("1_1kntc")
 
 [node name="DetectRange" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="DetectRangeShape" type="CollisionShape2D" parent="DetectRange"]
-shape = SubResource("CircleShape2D_lrco6")
+shape = SubResource("CircleShape2D_23lkx")
 
 [node name="CloseRange" type="Area2D" parent="."]
 collision_layer = 0
 
 [node name="CloseRangeShape" type="CollisionShape2D" parent="CloseRange"]
-shape = SubResource("CircleShape2D_y1cn4")
+shape = SubResource("CircleShape2D_xdeum")
 
 [connection signal="player_detection_changed" from="." to="." method="_on_player_detection_changed"]
 [connection signal="body_entered" from="DetectRange" to="." method="_on_detect_range_body_entered"]

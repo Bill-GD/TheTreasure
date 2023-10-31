@@ -8,7 +8,7 @@ func _on_body_entered(body:Node2D):
 	if body is Bullet and (body.shooter is BossEnemy or body.shooter is Enemy):
 		body.hit.emit()
 		if player.current_armor > 0:
-			player.current_armor -= body.actual_damage
+			player.current_armor -= min(body.actual_damage, player.current_armor)
 			armor_bar.update_armor(player.current_armor, player.BASE_ARMOR)
 		else: player.current_hp -= body.actual_damage
 
@@ -20,3 +20,7 @@ func _on_body_entered(body:Node2D):
 
 		health_bar.update_health(player.current_hp, player.BASE_HP)
 		# body.queue_free()
+
+func _on_mouse_entered():
+	print('Player: HP = %s, Armor = %s' % [player.current_hp, player.current_armor])
+	pass # Replace with function body.

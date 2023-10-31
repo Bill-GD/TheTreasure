@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bidysi0fe05rn"]
+[gd_scene load_steps=4 format=3 uid="uid://bidysi0fe05rn"]
 
 [ext_resource type="Script" path="res://Level_1/level_1.gd" id="1_ou3yk"]
 [ext_resource type="PackedScene" uid="uid://o47pxp8rypel" path="res://Player/player.tscn" id="2_81jet"]
+[ext_resource type="PackedScene" uid="uid://bbcofsvyw517t" path="res://Enemy/enemy.tscn" id="3_6ey6y"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_ou3yk")
@@ -12,5 +13,8 @@ position = Vector2(585, 331)
 [node name="LevelCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="Enemy" parent="." instance=ExtResource("3_6ey6y")]
+position = Vector2(1237, 677)
 
 [connection signal="timeout" from="LevelCooldown" to="." method="_on_level_cooldown_timeout"]

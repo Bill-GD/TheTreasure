@@ -1,22 +1,23 @@
 class_name Bullet
 extends RigidBody2D
 
-var move_direction: Vector2 = Vector2.ZERO
-const BASE_SPEED: float = 800.0
-const BASE_DAMAGE: int = 1
-var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
-
-@onready var original_pos: Vector2 = position
-
-# use this to override speed, else use default speed
-var speed: float = BASE_SPEED
-
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: AnimatedSprite2D = $Sprite
-var shooter: CharacterBody2D
-@onready var actual_damage: int = BASE_DAMAGE + shooter.damage
+
+var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
 
 signal hit
+
+const BASE_SPEED: float = 800.0
+const BASE_DAMAGE: int = 1
+
+## Use this to override speed, else use default speed.
+var speed: float = BASE_SPEED
+var shooter: CharacterBody2D
+var move_direction: Vector2 = Vector2.ZERO
+@onready var actual_damage: int = BASE_DAMAGE + shooter.damage
+@onready var original_pos: Vector2 = position
+
 
 func _ready():
 	# move_direction = move_direction.normalized()
