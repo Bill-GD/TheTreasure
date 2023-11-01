@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://o47pxp8rypel"]
+[gd_scene load_steps=11 format=3 uid="uid://o47pxp8rypel"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
-[ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="1_wrex3"]
+[ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/player.png" id="2_omcrv"]
+[ext_resource type="Texture2D" uid="uid://cnwebbrxfle26" path="res://Assets/assault_rifle.png" id="3_8vj76"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_fvq8p"]
 [ext_resource type="Script" path="res://Player/armor_bar.gd" id="4_gvwii"]
 [ext_resource type="Script" path="res://Player/player_hurt_box.gd" id="5_7ihcb"]
@@ -14,23 +15,34 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_fu2e1"]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+z_index = 1
 rotation = 1.5708
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_q23yu")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.15625, 0.15625)
-texture = ExtResource("1_wrex3")
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="Sprite"]
+rotation = 3.14159
+scale = Vector2(0.096, 0.096)
+texture = ExtResource("2_omcrv")
+offset = Vector2(0, 45)
+
+[node name="Weapon" type="Sprite2D" parent="Sprite"]
+position = Vector2(0.999908, -26)
+rotation = 3.14159
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_8vj76")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xwv8d")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.5, 1.5)
 
 [node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 one_shot = true
 
 [node name="HealthBar" parent="." instance=ExtResource("3_fvq8p")]
@@ -51,6 +63,7 @@ show_percentage = false
 script = ExtResource("4_gvwii")
 
 [node name="ArmorRegen" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="ArmorRegenDelay" type="Timer" parent="."]
 wait_time = 3.0

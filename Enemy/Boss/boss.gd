@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Sprite2D = $Sprite
 @onready var health_bar: ProgressBar = $HealthBar
+@onready var nav_agent: NavigationAgent2D = $EnemyNavigation
 
 signal died
 
@@ -26,6 +27,7 @@ var pos_before_dash: Vector2
 
 var player_detected: bool = false
 var player_close_range: bool = false
+var has_seen_player: bool = false
 
 enum ATTACKS {
 	DASH,
@@ -38,38 +40,46 @@ var available_attacks = []
 
 
 func _ready():
-	print(current_hp)
 	health_bar.update_health(current_hp, total_hp)
 
-	print(available_attacks)
 	player = get_parent().get_node('Player') as Player
 	$AttackCooldown.start()
 
 	$Boss_PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
+	velocity = Vector2.ZERO
 
-func _physics_process(delta):
-	# movement: navigation or custom movement
-	move_and_collide(velocity * delta)
+func _physics_process(_delta):
+	if player:
+		if player_detected:
+			# aiming & rotation -> get player position
+			if is_aiming:
+				sprite.rotation = (player.global_position - global_position).angle()
+				collision.rotation = sprite.rotation
 
-	# aiming & rotation -> get player position
-	if is_aiming:
-		sprite.rotation = (player.global_position - global_position).angle()
-		collision.rotation = sprite.rotation
-
-	# attacking
-	if is_attacking:
-		if current_attack == ATTACKS.DASH and (get_last_slide_collision() or (global_position - pos_before_dash).length() > 200):
-			velocity = Vector2.ZERO
-			is_attacking = false
-			$AttackCooldown.start()
-		if current_attack == ATTACKS.SPIN:
-			velocity = Vector2.ZERO
-			spin()
-			attack()
-	# sound ?
+			# attacking
+			if is_attacking:
+				if current_attack == ATTACKS.DASH and (get_last_slide_collision() or (global_position - pos_before_dash).length() > 200):
+					velocity = Vector2.ZERO
+					is_attacking = false
+					$AttackCooldown.start()
+				if current_attack == ATTACKS.SPIN:
+					velocity = Vector2.ZERO
+					spin()
+					attack()
+			# sound ?
+		# navigation if player not detected
+		elif has_seen_player:
+			var path_direction = (nav_agent.get_next_path_position() - position).normalized()
+			velocity = path_direction * BASE_SPEED
+			sprite.rotation = path_direction.angle()
+		else: velocity = Vector2.ZERO
+	else: velocity = Vector2.ZERO
 
 	if current_hp <= 0:
 		died.emit()
+
+	# move_and_collide(velocity * delta)
+	move_and_slide()
 
 func prepare_attack():
 	$AttackTimer.start()
@@ -104,7 +114,7 @@ func attack():
 		$SingleBulletAttack.shoot_bullet(self, Vector2.RIGHT.rotated(shoot_direction.angle() + -PI/12).normalized())
 		$SingleBulletAttack.shoot_bullet(self, Vector2.RIGHT.rotated(shoot_direction.angle() + PI/12).normalized())
 	elif current_attack == ATTACKS.SPIN:
-		$SingleBulletAttack.shoot_bullet(self, Vector2.RIGHT.rotated(sprite.rotation), 100)
+		$SingleBulletAttack.shoot_bullet(self, Vector2.RIGHT.rotated(sprite.rotation), global_position + Vector2.RIGHT.rotated(sprite.rotation) * collision.shape.radius, 100)
 	else:
 		$SingleBulletAttack.shoot_bullet(self, shoot_direction)
 
@@ -129,3 +139,7 @@ func _on_player_detection_changed():
 	if not player_detected: available_attacks = []
 	if player_detected and not player_close_range: available_attacks = ['DASH']
 	if player_close_range: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
+
+func _on_enemy_navigation_navigation_finished():
+	velocity = Vector2.ZERO
+	pass # Replace with function body.

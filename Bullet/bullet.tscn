@@ -47,5 +47,6 @@ shape = SubResource("CapsuleShape2D_nu4m6")
 wait_time = 10.0
 one_shot = true
 
-[connection signal="hit" from="." to="." method="_on_hit"]
+[connection signal="hit_entity" from="." to="." method="_on_hit_entity"]
+[connection signal="hit_wall" from="." to="." method="_on_hit_wall"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

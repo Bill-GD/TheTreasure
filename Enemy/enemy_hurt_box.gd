@@ -6,8 +6,8 @@ extends Area2D
 
 func _on_body_entered(body:Node2D):
 	if body != null:
-		if body is Bullet and body.shooter is Player:
-			body.hit.emit()
+		if body is Bullet and (body.shooter == null or body.shooter is Player):
+			body.hit_entity.emit()
 			parent.current_hp -= body.actual_damage
 			health_bar.update_health(parent.current_hp, parent.total_hp)
 		# body.queue_free()

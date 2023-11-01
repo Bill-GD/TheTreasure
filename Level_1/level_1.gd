@@ -7,13 +7,15 @@ var boss_count: int = 0
 
 func _ready():
 	spawn_boss()
+	print(player.to_string())
 
 func spawn_boss():
-	var boss = boss_scene.instantiate()
+	pass
+	# var boss = boss_scene.instantiate()
 
-	boss.level = boss_count + 1
-	boss.position = Vector2(500, 500)
-	boss.connect('died', _on_boss_died)
+	# boss.level = boss_count + 1
+	# boss.position = Vector2(500, 500)
+	# boss.connect('died', _on_boss_died)
 
 	# add_child(boss)
 	# print('Boss spawned at: %s' % get_node('Boss').position)

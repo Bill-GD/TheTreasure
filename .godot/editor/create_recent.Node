@@ -1,9 +1,12 @@
+TileMap
+NavigationAgent2D
+Sprite2D
+Node2D
 Timer
 CollisionShape2D
 Area2D
 Label
 ProgressBar
-Sprite2D
 CharacterBody2D
 AnimatedSprite2D
 VisibleOnScreenNotifier2D

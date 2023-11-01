@@ -6,7 +6,8 @@ extends RigidBody2D
 
 var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
 
-signal hit
+signal hit_entity
+signal hit_wall
 
 const BASE_SPEED: float = 800.0
 const BASE_DAMAGE: int = 1
@@ -35,7 +36,7 @@ func _process(_delta):
 func _on_despawn_timer_timeout():
 	queue_free()
 
-func _on_hit():
+func _on_hit_entity():
 	var damage_text: DamageText = damage_text_scene.instantiate()
 
 	damage_text.text = str(actual_damage)
@@ -44,3 +45,7 @@ func _on_hit():
 
 	get_parent().add_child(damage_text)
 	queue_free()
+
+func _on_hit_wall():
+	queue_free()
+	pass # Replace with function body.

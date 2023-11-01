@@ -2,7 +2,9 @@ class_name Player
 extends CharacterBody2D
 
 @onready var collision: CollisionShape2D = $Collision
-@onready var sprite: Sprite2D = $Sprite
+@onready var sprite: Node2D = $Sprite
+@onready var body_sprite: Sprite2D = $Sprite/Body
+@onready var weapon_sprite: Sprite2D = $Sprite/Weapon
 @onready var health_bar: HealthBar = $HealthBar
 @onready var armor_bar: ProgressBar = $ArmorBar
 @onready var armor_regen_timer: Timer = $ArmorRegen
@@ -44,7 +46,8 @@ func _physics_process(delta):
 
 	# shooting
 	if $AttackCooldown.is_stopped() and (Input.is_key_pressed(KEY_SPACE) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
-		$SingleBulletAttack.shoot_bullet(self, get_global_mouse_position() - global_position)
+		var shoot_direction = (get_global_mouse_position() - global_position).normalized()
+		$SingleBulletAttack.shoot_bullet(self, shoot_direction, global_position + shoot_direction * collision.shape.get_rect().size.x * 1.1 + (shoot_direction.orthogonal() * -1))
 		$AttackCooldown.start()
 	# sound ?
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbcofsvyw517t"]
+[gd_scene load_steps=10 format=3 uid="uid://bbcofsvyw517t"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_jenkf"]
 [ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/enemy.png" id="2_fe7ki"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="5_2lkjo"]
 [ext_resource type="PackedScene" uid="uid://3nuoac6nuewn" path="res://Enemy/enemy_player_detection.tscn" id="5_65h6i"]
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="6_av5fk"]
+[ext_resource type="PackedScene" uid="uid://bx7nhba8s6f20" path="res://Enemy/enemy_navigation.tscn" id="7_ytkpd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pds5s"]
 radius = 15.0
@@ -14,6 +15,7 @@ radius = 15.0
 radius = 15.0
 
 [node name="Enemy" type="CharacterBody2D"]
+z_index = 1
 collision_layer = 2
 script = ExtResource("1_jenkf")
 
@@ -46,6 +48,8 @@ rotation = 0.0
 
 [node name="AttackCooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="EnemyNavigation" parent="." instance=ExtResource("7_ytkpd")]
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
