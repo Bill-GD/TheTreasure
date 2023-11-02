@@ -3,7 +3,8 @@
 ## Made in Godot 4
 
 ## Summary
-An adventurer trying to find the lost treasure in an ancient temple. Defeat rooms of enemies and bosses to get access to the final room containing the sought after treasure.
+An adventurer trying to find the lost treasure in an ancient temple.
+Defeat rooms of enemies and bosses to get access to the final room containing the sought after treasure.
 The player can get more weapons after defeating bosses in each room.
 
 ## Game contains:

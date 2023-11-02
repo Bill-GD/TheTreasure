@@ -25,39 +25,44 @@ var total_armor: int
 var current_hp: int
 var current_armor: int
 var damage: int
+# 'Pistol', 'Assault', 'Shotgun'
+var available_weapons: Array[String] = ['Pistol', 'Assault', 'Shotgun']
+var current_weapon: int = 0
 
 
-func _ready():
+func _ready() -> void:
 	armor_bar.update_armor(current_armor, total_armor)
 	health_bar.update_health(current_hp, total_hp)
 	level_up()
+	$PlayerAttack.reset_weapon()
 
-func _physics_process(delta):
+func _physics_process(_delta) -> void:
 	# movement
 	var direction = Input.get_vector('aswd_left', 'aswd_right', 'aswd_up', 'aswd_down')
 	
 	velocity = direction * (SPRINT_SPEED if Input.is_key_pressed(KEY_SHIFT) else BASE_SPEED)
-	# move_and_slide()
-	move_and_collide(velocity * delta)
+	move_and_slide()
+	# move_and_collide(velocity * delta)
 
 	# aiming & rotation
-	sprite.rotation = (get_global_mouse_position() - global_position).angle()
+	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
+	sprite.rotation = mouse_direction.angle()
 	collision.rotation = sprite.rotation
 
 	# shooting
-	if $AttackCooldown.is_stopped() and (Input.is_key_pressed(KEY_SPACE) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
-		var shoot_direction = (get_global_mouse_position() - global_position).normalized()
-		$SingleBulletAttack.shoot_bullet(self, shoot_direction, global_position + shoot_direction * collision.shape.get_rect().size.x * 1.1 + (shoot_direction.orthogonal() * -1))
-		$AttackCooldown.start()
-	# sound ?
+	if Input.is_key_pressed(KEY_SPACE) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		$PlayerAttack.attack(mouse_direction)
+
+	# if Input.is_key_pressed(KEY_Q):
+	# 	$PlayerAttack.change_weapon(available_weapons[current_weapon])
 	
 	if current_armor < BASE_ARMOR and $ArmorRegenDelay.is_stopped() and $ArmorRegen.is_stopped():
 		$ArmorRegen.start()
 
-func _on_armor_regen_timeout():
+func _on_armor_regen_timeout() -> void:
 	current_armor += 1
-	armor_bar.update_armor(current_armor, BASE_ARMOR)
-	if current_armor == BASE_ARMOR: $ArmorRegen.stop()
+	armor_bar.update_armor(current_armor, total_armor)
+	if current_armor == total_armor: $ArmorRegen.stop()
 
 	var damage_text: DamageText = damage_text_scene.instantiate()
 	damage_text.text = '1'
@@ -65,13 +70,15 @@ func _on_armor_regen_timeout():
 	damage_text.add_theme_color_override("font_color", Color(0.4, 0.4, 0.4))
 	get_parent().add_child(damage_text)
 
-func _on_died():
+func _on_died() -> void:
 	queue_free()
 
-func level_up():
+func level_up() -> void:
 	level += 1
 	total_hp = BASE_HP + 10 * (level - 1)
 	total_armor = BASE_ARMOR + 2 * (level - 1)
 	current_hp = total_hp
 	current_armor = total_armor
 	damage = level
+	armor_bar.update_armor(current_armor, total_armor)
+	health_bar.update_health(current_hp, total_hp)

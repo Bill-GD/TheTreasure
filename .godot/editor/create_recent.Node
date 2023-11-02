@@ -1,8 +1,8 @@
+Timer
 TileMap
 NavigationAgent2D
 Sprite2D
 Node2D
-Timer
 CollisionShape2D
 Area2D
 Label

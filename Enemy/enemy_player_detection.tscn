@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Enemy/player_detection.gd" id="1_6lp75"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x71db"]
-radius = 300.0
+radius = 350.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6u3vj"]
 radius = 125.0

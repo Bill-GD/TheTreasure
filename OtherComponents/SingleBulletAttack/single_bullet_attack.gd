@@ -10,9 +10,8 @@ func shoot_bullet(shooter: CharacterBody2D, shoot_direction: Vector2, shoot_posi
 	var bullet = bullet_scene.instantiate() as Bullet
 	bullet.speed = target_speed
 	bullet.position = shoot_position if shoot_position != Vector2.ZERO else shooter.global_position + shoot_direction * shooter.collision.shape.get_rect().size.x * 1.1
-	# bullet.position = shooter.global_position + shoot_direction * shooter.collision.shape.get_rect().size.x * 1.1
 	bullet.move_direction = shoot_direction
 
 	bullet.shooter = shooter
 
-	get_parent().get_parent().add_child(bullet)
+	get_tree().root.add_child(bullet)

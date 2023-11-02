@@ -49,3 +49,8 @@ func _on_hit_entity():
 func _on_hit_wall():
 	queue_free()
 	pass # Replace with function body.
+
+func _on_body_entered(body: Node):
+	if body.is_in_group('wall'):
+		hit_wall.emit()
+	pass # Replace with function body.
