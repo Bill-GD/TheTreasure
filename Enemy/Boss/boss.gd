@@ -6,6 +6,8 @@ extends CharacterBody2D
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $EnemyNavigation
 
+var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
+
 signal died
 
 @export var player: Player
@@ -132,6 +134,9 @@ func _on_tween_finished():
 	$AfterSpinCooldown.start()
 
 func _on_died():
+	var death_effect = death_effect_scene.instantiate()
+	death_effect.position = global_position
+	get_parent().add_child(death_effect)
 	queue_free()
 
 func _on_player_detection_changed():

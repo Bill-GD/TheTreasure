@@ -6,12 +6,14 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite
 @onready var nav_agent: NavigationAgent2D = $EnemyNavigation
 
+var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
+
 signal died
 
 var target: Player
 
 const BASE_SPEED: float = 100
-const BASE_HP: int = 40
+const BASE_HP: int = 60
 const BASE_DAMAGE: int = 2
 
 var move_direction: Vector2
@@ -61,6 +63,9 @@ func _process(_delta):
 # 		die()
 
 func _on_died():
+	var death_effect = death_effect_scene.instantiate()
+	death_effect.position = global_position
+	get_parent().add_child(death_effect)
 	queue_free()
 
 func _on_player_detection_changed():

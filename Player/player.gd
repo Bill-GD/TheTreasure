@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var armor_regen_delay_timer: Timer = $ArmorRegenDelay
 
 var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
+var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
 
 signal died
 
@@ -66,6 +67,9 @@ func _on_armor_regen_timeout() -> void:
 	get_parent().add_child(damage_text)
 
 func _on_died() -> void:
+	var death_effect = death_effect_scene.instantiate()
+	death_effect.position = global_position
+	get_parent().add_child(death_effect)
 	queue_free()
 
 func level_up() -> void:

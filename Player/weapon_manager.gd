@@ -14,25 +14,28 @@ func _process(_delta):
 
 func change_weapon(new_weapon_name: String) -> void:
 	# var player: Player = get_parent()
-	if new_weapon_name != player.current_weapon and new_weapon_name in player.available_weapons and $WeaponSwapCooldown.is_stopped():
+	if new_weapon_name in player.available_weapons and $WeaponSwapCooldown.is_stopped():
 		var current_weapon_node: Sprite2D = player.get_node('Sprite').get_children()[1]
-		var new_weapon_node: Sprite2D
+		
+		if new_weapon_name == player.current_weapon: player.damage = current_weapon_node.damage
+		else:
+			var new_weapon_node: Sprite2D
 
-		if new_weapon_name == 'Pistol': new_weapon_node = pistol_scene.instantiate()
-		if new_weapon_name == 'Shotgun': new_weapon_node = shotgun_scene.instantiate()
-		if new_weapon_name == 'Assault': new_weapon_node = assault_rifle_scene.instantiate()
-			
-		new_weapon_node.position = current_weapon_node.position
-		new_weapon_node.rotation = current_weapon_node.rotation
-		$AttackCooldown.wait_time = new_weapon_node.fire_rate
+			if new_weapon_name == 'Pistol': new_weapon_node = pistol_scene.instantiate()
+			if new_weapon_name == 'Shotgun': new_weapon_node = shotgun_scene.instantiate()
+			if new_weapon_name == 'Assault': new_weapon_node = assault_rifle_scene.instantiate()
+				
+			new_weapon_node.position = current_weapon_node.position
+			new_weapon_node.rotation = current_weapon_node.rotation
+			$AttackCooldown.wait_time = new_weapon_node.fire_rate
 
-		$WeaponSwapCooldown.start()
+			$WeaponSwapCooldown.start()
 
-		player.get_node('Sprite').remove_child(current_weapon_node)
-		player.get_node('Sprite').add_child(new_weapon_node)
+			player.get_node('Sprite').remove_child(current_weapon_node)
+			player.get_node('Sprite').add_child(new_weapon_node)
 
-		player.damage = new_weapon_node.damage
-		player.current_weapon = new_weapon_name
+			player.damage = new_weapon_node.damage
+			player.current_weapon = new_weapon_name
 
 func attack(shoot_direction: Vector2) -> void:
 	if $AttackCooldown.is_stopped():

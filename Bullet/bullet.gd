@@ -5,6 +5,7 @@ extends RigidBody2D
 @onready var sprite: AnimatedSprite2D = $Sprite
 
 var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
+var damage_impact_scene: PackedScene = load("res://Bullet/bullet_impact.tscn")
 
 signal hit_entity
 signal hit_wall
@@ -43,7 +44,11 @@ func _on_hit_entity():
 	damage_text.position = global_position
 	damage_text.add_theme_color_override("font_color", Color(1, 0, 0))
 
+	var damage_impact = damage_impact_scene.instantiate()
+	damage_impact.position = global_position
+
 	get_parent().add_child(damage_text)
+	get_parent().add_child(damage_impact)
 	queue_free()
 
 func _on_hit_wall():

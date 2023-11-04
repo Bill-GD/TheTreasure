@@ -6,11 +6,12 @@ var boss_count: int = 0
 @onready var player: Player = get_node('Player')
 
 func _ready():
-	spawn_boss()
+	# spawn_boss()
 	print(player.to_string())
+	$Boss.set_physics_process(false)
 
-func spawn_boss():
-	pass
+# func spawn_boss():
+	# pass
 	# var boss = boss_scene.instantiate()
 
 	# boss.level = boss_count + 1
@@ -26,4 +27,5 @@ func _on_boss_died():
 	$LevelCooldown.start()
 
 func _on_level_cooldown_timeout():
-	spawn_boss()
+	# spawn_boss()
+	pass

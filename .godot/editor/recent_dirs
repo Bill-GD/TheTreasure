@@ -1,11 +1,11 @@
-res://Player
-res://Player/Weapon
-D:/Code/Godot/TheTreasure/Player/Weapon
 res://TileMaps
-res://Level_1
+res://OtherComponents
+res://OtherComponents/DeathEffect
+res://Assets
+res://Bullet
+res://Player
+D:/Code/Godot/TheTreasure/Player/Weapon
 res://Enemy
 res://OtherComponents/DamageText
 res://Enemy/Boss
-res://Assets
-res://Bullet
 D:/Microsoft VS Code

@@ -1,14 +1,15 @@
+RayCast2D
+TileMap
+AnimatedSprite2D
 Node2D
 Sprite2D
 Timer
-TileMap
 NavigationAgent2D
 CollisionShape2D
 Area2D
 Label
 ProgressBar
 CharacterBody2D
-AnimatedSprite2D
 VisibleOnScreenNotifier2D
 RigidBody2D
 Camera2D

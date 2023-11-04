@@ -1,24 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgslno0gv6x0u"]
+[gd_scene load_steps=9 format=3 uid="uid://bgslno0gv6x0u"]
 
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_5qfdj"]
 [ext_resource type="Texture2D" uid="uid://bio0dcjbwxhq8" path="res://Assets/bullet.png" id="2_l1pei"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3pdvf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffvgy"]
 atlas = ExtResource("2_l1pei")
-region = Rect2(0, 0, 16, 6)
+region = Rect2(0, 0, 14, 7)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vigfa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2vvf"]
 atlas = ExtResource("2_l1pei")
-region = Rect2(17, 0, 16, 6)
+region = Rect2(15, 0, 14, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nghlr"]
+atlas = ExtResource("2_l1pei")
+region = Rect2(30, 0, 14, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbcbg"]
+atlas = ExtResource("2_l1pei")
+region = Rect2(45, 0, 14, 7)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8f5j8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3pdvf")
+"texture": SubResource("AtlasTexture_ffvgy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vigfa")
+"texture": SubResource("AtlasTexture_x2vvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nghlr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbcbg")
 }],
 "loop": true,
 "name": &"default",
@@ -27,7 +41,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nu4m6"]
 radius = 3.0
-height = 16.0
+height = 14.0
 
 [node name="Bullet" type="RigidBody2D" groups=["bullet"]]
 collision_layer = 4
