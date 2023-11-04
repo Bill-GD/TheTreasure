@@ -7,14 +7,15 @@ extends CharacterBody2D
 @onready var nav_agent: NavigationAgent2D = $EnemyNavigation
 
 var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
+var item_scene: PackedScene = load("res://OtherComponents/Item/item.tscn")
 
 signal died
 
-@export var player: Player
+var target: Player
 
 const BASE_SPEED: float = 150
 const BASE_HP: int = 200
-const BASE_DAMAGE: int = 5
+const BASE_DAMAGE: int = 7
 
 var tween: Tween
 
@@ -44,18 +45,18 @@ var available_attacks = []
 func _ready():
 	health_bar.update_health(current_hp, total_hp)
 
-	player = get_parent().get_node('Player') as Player
+	target = get_parent().get_node('Player')
 	$AttackCooldown.start()
 
-	$Boss_PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
+	$PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
 	velocity = Vector2.ZERO
 
 func _physics_process(_delta):
-	if player:
+	if target:
 		if player_detected:
 			# aiming & rotation -> get player position
 			if is_aiming:
-				sprite.rotation = (player.global_position - global_position).angle()
+				sprite.rotation = (target.global_position - global_position).angle()
 				collision.rotation = sprite.rotation
 
 			# attacking
@@ -96,7 +97,7 @@ func _on_attack_timer_timeout():
 	if current_attack == ATTACKS.DASH:
 		velocity = Vector2.RIGHT.rotated(sprite.rotation) * BASE_SPEED * 10
 	if current_attack == ATTACKS.SHOOT_NORMAL or current_attack == ATTACKS.SHOOT_SPREAD:
-		velocity = (player.global_position - global_position).normalized() * 30 * (level - 1)
+		velocity = (target.global_position - global_position).normalized() * (BASE_SPEED / 3) * (level - 1)
 		attack()
 		is_attacking = false
 		$AttackCooldown.start()
@@ -109,7 +110,7 @@ func _on_attack_cooldown_timeout():
 	prepare_attack()
 
 func attack():
-	var shoot_direction: Vector2 = (player.global_position - global_position).normalized()
+	var shoot_direction: Vector2 = (target.global_position - global_position).normalized()
 
 	if current_attack == ATTACKS.SHOOT_SPREAD:
 		$SingleBulletAttack.shoot_bullet(self, shoot_direction)
@@ -137,6 +138,7 @@ func _on_died():
 	var death_effect = death_effect_scene.instantiate()
 	death_effect.position = global_position
 	get_parent().add_child(death_effect)
+
 	queue_free()
 
 func _on_player_detection_changed():

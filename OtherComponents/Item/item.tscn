@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://csc8uvqf8ohri"]
+
+[ext_resource type="Script" path="res://OtherComponents/Item/item.gd" id="1_hdu1t"]
+[ext_resource type="Texture2D" uid="uid://ggr724fjchq4" path="res://Assets/health_item.png" id="1_lwj3n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dsiux"]
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmnwp"]
+atlas = ExtResource("1_lwj3n")
+region = Rect2(0, 0, 18, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78jyi"]
+atlas = ExtResource("1_lwj3n")
+region = Rect2(19, 0, 18, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3orog"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmnwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78jyi")
+}],
+"loop": true,
+"name": &"health",
+"speed": 3.0
+}]
+
+[node name="HealthItem" type="Node2D"]
+z_index = 1
+script = ExtResource("1_hdu1t")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_dsiux")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_3orog")
+animation = &"health"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

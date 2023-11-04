@@ -80,3 +80,14 @@ func level_up() -> void:
 	current_armor = total_armor
 	armor_bar.update_armor(current_armor, total_armor)
 	health_bar.update_health(current_hp, total_hp)
+
+func heal(amount: int) -> void:
+	var actual_heal_amount = min(total_hp - current_hp, amount)
+	current_hp += actual_heal_amount
+	health_bar.update_health(current_hp, total_hp)
+
+	var damage_text: DamageText = damage_text_scene.instantiate()
+	damage_text.text = str(actual_heal_amount)
+	damage_text.position = global_position
+	damage_text.add_theme_color_override("font_color", Color(0, 1, 0))
+	get_parent().add_child(damage_text)

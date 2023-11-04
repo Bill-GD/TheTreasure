@@ -15,7 +15,7 @@ radius = 15.0
 radius = 15.0
 
 [node name="Enemy" type="CharacterBody2D"]
-z_index = 1
+z_index = 2
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_jenkf")
@@ -43,7 +43,7 @@ offset_right = 215.0
 offset_bottom = 34.0
 rotation = 0.0
 
-[node name="Enemy_PlayerDetection" parent="." instance=ExtResource("5_65h6i")]
+[node name="PlayerDetection" parent="." instance=ExtResource("5_65h6i")]
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("6_av5fk")]
 
