@@ -1,5 +1,7 @@
-res://TileMaps
 res://Player
+res://Player/Weapon
+D:/Code/Godot/TheTreasure/Player/Weapon
+res://TileMaps
 res://Level_1
 res://Enemy
 res://OtherComponents/DamageText

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
 [ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/player.png" id="2_omcrv"]
-[ext_resource type="Texture2D" uid="uid://dh16a8cet0ls2" path="res://Assets/pistol.png" id="3_a50wh"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_fvq8p"]
 [ext_resource type="Script" path="res://Player/armor_bar.gd" id="4_gvwii"]
 [ext_resource type="Script" path="res://Player/player_hurt_box.gd" id="5_7ihcb"]
-[ext_resource type="PackedScene" uid="uid://cgdnd8lragkbe" path="res://Player/player_attack.tscn" id="8_ah56o"]
+[ext_resource type="PackedScene" uid="uid://dp6ejx4q6x3r3" path="res://Player/Weapons/pistol.tscn" id="8_52ony"]
+[ext_resource type="PackedScene" uid="uid://cgdnd8lragkbe" path="res://Player/weapon_manager.tscn" id="8_ah56o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
 
@@ -31,11 +31,9 @@ scale = Vector2(0.096, 0.096)
 texture = ExtResource("2_omcrv")
 offset = Vector2(0, 45)
 
-[node name="Weapon" type="Sprite2D" parent="Sprite"]
+[node name="Pistol" parent="Sprite" instance=ExtResource("8_52ony")]
 position = Vector2(0.999908, -26)
-rotation = 3.14159
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_a50wh")
+rotation = -3.14159
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xwv8d")
@@ -76,7 +74,7 @@ script = ExtResource("5_7ihcb")
 [node name="Collision" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_fu2e1")
 
-[node name="PlayerAttack" parent="." instance=ExtResource("8_ah56o")]
+[node name="WeaponManager" parent="." instance=ExtResource("8_ah56o")]
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="timeout" from="ArmorRegen" to="." method="_on_armor_regen_timeout"]

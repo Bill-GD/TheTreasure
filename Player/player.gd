@@ -3,8 +3,6 @@ extends CharacterBody2D
 
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Node2D = $Sprite
-@onready var body_sprite: Sprite2D = $Sprite/Body
-@onready var weapon_sprite: Sprite2D = $Sprite/Weapon
 @onready var health_bar: HealthBar = $HealthBar
 @onready var armor_bar: ProgressBar = $ArmorBar
 @onready var armor_regen_timer: Timer = $ArmorRegen
@@ -24,17 +22,17 @@ var total_hp: int
 var total_armor: int
 var current_hp: int
 var current_armor: int
-var damage: int
+var damage: int = 0
 # 'Pistol', 'Assault', 'Shotgun'
 var available_weapons: Array[String] = ['Pistol', 'Assault', 'Shotgun']
-var current_weapon: int = 0
+var current_weapon: String = 'Pistol'
 
 
 func _ready() -> void:
 	armor_bar.update_armor(current_armor, total_armor)
 	health_bar.update_health(current_hp, total_hp)
 	level_up()
-	$PlayerAttack.reset_weapon()
+	$WeaponManager.reset_weapon()
 
 func _physics_process(_delta) -> void:
 	# movement
@@ -51,10 +49,7 @@ func _physics_process(_delta) -> void:
 
 	# shooting
 	if Input.is_key_pressed(KEY_SPACE) or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		$PlayerAttack.attack(mouse_direction)
-
-	# if Input.is_key_pressed(KEY_Q):
-	# 	$PlayerAttack.change_weapon(available_weapons[current_weapon])
+		$WeaponManager.attack(mouse_direction)
 	
 	if current_armor < BASE_ARMOR and $ArmorRegenDelay.is_stopped() and $ArmorRegen.is_stopped():
 		$ArmorRegen.start()
@@ -79,6 +74,5 @@ func level_up() -> void:
 	total_armor = BASE_ARMOR + 2 * (level - 1)
 	current_hp = total_hp
 	current_armor = total_armor
-	damage = level
 	armor_bar.update_armor(current_armor, total_armor)
 	health_bar.update_health(current_hp, total_hp)
