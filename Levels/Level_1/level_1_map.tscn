@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://u3d2ywqdkp70"]
 
-[ext_resource type="Texture2D" uid="uid://g3xk8h2ro05k" path="res://Assets/empty_navigation.png" id="1_6553d"]
+[ext_resource type="Texture2D" uid="uid://g3xk8h2ro05k" path="res://Assets/Sprites/empty_navigation.png" id="1_6553d"]
 [ext_resource type="PackedScene" uid="uid://cetfvbfwciidn" path="res://TileMaps/wall_stone.tscn" id="2_0ewjh"]
 [ext_resource type="PackedScene" uid="uid://hsl7x640md3j" path="res://TileMaps/ground_nature_2.tscn" id="2_7s4xq"]
 [ext_resource type="PackedScene" uid="uid://cep8po7p86ry3" path="res://TileMaps/ground_bushes.tscn" id="4_62wt8"]
-[ext_resource type="Texture2D" uid="uid://djenvsomhdxnh" path="res://Assets/dark_tile.png" id="5_q63fq"]
+[ext_resource type="Texture2D" uid="uid://djenvsomhdxnh" path="res://Assets/Sprites/dark_tile.png" id="5_q63fq"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_v0ctp"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

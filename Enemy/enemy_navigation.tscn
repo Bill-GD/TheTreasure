@@ -4,7 +4,6 @@
 
 [node name="EnemyNavigation" type="NavigationAgent2D"]
 target_desired_distance = 20.0
-debug_enabled = true
 script = ExtResource("1_4crlo")
 
 [node name="RayCast" type="RayCast2D" parent="."]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2xh18762q6sf"]
+
+[ext_resource type="AudioStream" uid="uid://cymf708fpxvxv" path="res://Assets/Sounds/item_pickup.wav" id="1_ji2j3"]
+[ext_resource type="Script" path="res://OtherComponents/SoundScenes/external_sound.gd" id="2_0nnkw"]
+
+[node name="ItemPickup" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_ji2j3")
+script = ExtResource("2_0nnkw")

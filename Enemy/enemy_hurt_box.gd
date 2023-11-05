@@ -7,11 +7,10 @@ extends Area2D
 func _on_body_entered(body:Node2D):
 	if body != null:
 		if body is Bullet and (body.shooter == null or body.shooter is Player):
+			$SoundEffect.play()
 			body.hit_entity.emit()
 			parent.current_hp -= body.actual_damage
 			health_bar.update_health(parent.current_hp, parent.total_hp)
-		# body.queue_free()
 
 func _on_mouse_entered():
 	print('%s: HP = %s' % ['Enemy' if parent is Enemy else 'Boss', parent.current_hp])
-	pass # Replace with function body.

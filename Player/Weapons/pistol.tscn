@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dp6ejx4q6x3r3"]
+[gd_scene load_steps=5 format=3 uid="uid://dp6ejx4q6x3r3"]
 
-[ext_resource type="Texture2D" uid="uid://dh16a8cet0ls2" path="res://Assets/pistol.png" id="1_at0cu"]
+[ext_resource type="Texture2D" uid="uid://dh16a8cet0ls2" path="res://Assets/Sprites/pistol.png" id="1_at0cu"]
 [ext_resource type="Script" path="res://Player/Weapons/pistol.gd" id="2_eyqdi"]
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="3_1ipkm"]
+[ext_resource type="AudioStream" uid="uid://cvg8gf2twqs6k" path="res://Assets/Sounds/pistol_shot.wav" id="4_tta42"]
 
 [node name="Pistol" type="Sprite2D"]
 rotation = -1.5708
@@ -11,3 +12,7 @@ texture = ExtResource("1_at0cu")
 script = ExtResource("2_eyqdi")
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("3_1ipkm")]
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tta42")
+volume_db = -10.0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://8g4ja5he07k0"]
+[gd_scene load_steps=5 format=3 uid="uid://8g4ja5he07k0"]
 
-[ext_resource type="Texture2D" uid="uid://hyl403t57vq8" path="res://Assets/shotgun.png" id="1_4huqk"]
+[ext_resource type="Texture2D" uid="uid://hyl403t57vq8" path="res://Assets/Sprites/shotgun.png" id="1_4huqk"]
 [ext_resource type="Script" path="res://Player/Weapons/shotgun.gd" id="2_x602t"]
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="3_d3mh5"]
+[ext_resource type="AudioStream" uid="uid://dt4d6mywf7gny" path="res://Assets/Sounds/shotgun_shot.wav" id="4_fbgtj"]
 
 [node name="Shotgun" type="Sprite2D"]
 rotation = -1.5708
@@ -11,3 +12,7 @@ texture = ExtResource("1_4huqk")
 script = ExtResource("2_x602t")
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("3_d3mh5")]
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fbgtj")
+volume_db = -5.0

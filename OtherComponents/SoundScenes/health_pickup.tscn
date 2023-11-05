@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxwmnguq34jg7"]
+
+[ext_resource type="AudioStream" uid="uid://ce3ktt0srmhk3" path="res://Assets/Sounds/health_pickup.wav" id="1_kxnds"]
+[ext_resource type="Script" path="res://OtherComponents/SoundScenes/external_sound.gd" id="2_61r7i"]
+
+[node name="HealthPickupSound" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_kxnds")
+volume_db = -15.0
+script = ExtResource("2_61r7i")

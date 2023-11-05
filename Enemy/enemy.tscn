@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbcofsvyw517t"]
+[gd_scene load_steps=12 format=3 uid="uid://bbcofsvyw517t"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_jenkf"]
-[ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/enemy.png" id="2_fe7ki"]
+[ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/Sprites/enemy.png" id="2_fe7ki"]
 [ext_resource type="Script" path="res://Enemy/enemy_hurt_box.gd" id="3_y2fat"]
+[ext_resource type="AudioStream" uid="uid://d2fsjv4d7gmfr" path="res://Assets/Sounds/hit.wav" id="4_ov856"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="5_2lkjo"]
 [ext_resource type="PackedScene" uid="uid://3nuoac6nuewn" path="res://Enemy/enemy_player_detection.tscn" id="5_65h6i"]
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="6_av5fk"]
 [ext_resource type="PackedScene" uid="uid://bx7nhba8s6f20" path="res://Enemy/enemy_navigation.tscn" id="7_ytkpd"]
+[ext_resource type="AudioStream" uid="uid://cb0dvo6anoc1i" path="res://Assets/Sounds/laser_shot.wav" id="9_gqml5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pds5s"]
 radius = 15.0
@@ -36,6 +38,10 @@ script = ExtResource("3_y2fat")
 [node name="Collision" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_5ulcu")
 
+[node name="SoundEffect" type="AudioStreamPlayer2D" parent="HurtBox"]
+stream = ExtResource("4_ov856")
+volume_db = -10.0
+
 [node name="HealthBar" parent="." instance=ExtResource("5_2lkjo")]
 offset_left = -5.0
 offset_top = -27.0
@@ -51,6 +57,11 @@ rotation = 0.0
 one_shot = true
 
 [node name="EnemyNavigation" parent="." instance=ExtResource("7_ytkpd")]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_gqml5")
+volume_db = -10.0
+max_distance = 1000.0
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]

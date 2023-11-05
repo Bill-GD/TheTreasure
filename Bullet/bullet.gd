@@ -6,6 +6,7 @@ extends RigidBody2D
 
 var damage_text_scene: PackedScene = load("res://OtherComponents/DamageText/damage_text.tscn")
 var damage_impact_scene: PackedScene = load("res://Bullet/bullet_impact.tscn")
+var hit_wall_sound_scene: PackedScene = load("res://OtherComponents/SoundScenes/hit_wall_sound.tscn")
 
 signal hit_entity
 signal hit_wall
@@ -52,10 +53,12 @@ func _on_hit_entity():
 	queue_free()
 
 func _on_hit_wall():
+	if shooter != null and shooter is Player:
+		var hit_wall_sound = hit_wall_sound_scene.instantiate()
+		hit_wall_sound.position = global_position
+		get_parent().add_child(hit_wall_sound)
 	queue_free()
-	pass # Replace with function body.
 
 func _on_body_entered(body: Node):
 	if body.is_in_group('wall'):
 		hit_wall.emit()
-	pass # Replace with function body.

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://8x8rwwvx3y53"]
+[gd_scene load_steps=11 format=3 uid="uid://8x8rwwvx3y53"]
 
-[ext_resource type="Texture2D" uid="uid://dk2emmn7exj5n" path="res://Assets/death_effect.png" id="1_e8dvl"]
+[ext_resource type="Texture2D" uid="uid://dk2emmn7exj5n" path="res://Assets/Sprites/death_effect.png" id="1_e8dvl"]
 [ext_resource type="Script" path="res://OtherComponents/effect.gd" id="2_w2mle"]
+[ext_resource type="AudioStream" uid="uid://dxj5dr3meub0j" path="res://Assets/Sounds/death.wav" id="3_gkpdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbl7p"]
 atlas = ExtResource("1_e8dvl")
@@ -59,5 +60,8 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4i00r")
 frame_progress = 0.328795
 script = ExtResource("2_w2mle")
+
+[node name="SoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gkpdd")
 
 [connection signal="animation_looped" from="." to="." method="_on_animation_looped"]

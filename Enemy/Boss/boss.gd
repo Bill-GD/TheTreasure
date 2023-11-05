@@ -111,6 +111,7 @@ func _on_attack_cooldown_timeout():
 
 func attack():
 	var shoot_direction: Vector2 = (target.global_position - global_position).normalized()
+	$ShootSound.play()
 
 	if current_attack == ATTACKS.SHOOT_SPREAD:
 		$SingleBulletAttack.shoot_bullet(self, shoot_direction)
@@ -135,6 +136,11 @@ func _on_tween_finished():
 	$AfterSpinCooldown.start()
 
 func _on_died():
+	var health_item: Item = item_scene.instantiate()
+	health_item.position = global_position
+	health_item.item_type = Item.ITEM_TYPE.HEALTH
+	get_tree().root.add_child(health_item)
+
 	var death_effect = death_effect_scene.instantiate()
 	death_effect.position = global_position
 	get_parent().add_child(death_effect)

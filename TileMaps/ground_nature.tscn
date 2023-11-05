@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cqk16r0ewajbt"]
 
-[ext_resource type="Texture2D" uid="uid://bbjcfjrquf03y" path="res://Assets/ground_tiles_nature.png" id="1_v2fme"]
+[ext_resource type="Texture2D" uid="uid://bbjcfjrquf03y" path="res://Assets/Sprites/ground_tiles_nature.png" id="1_v2fme"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_w2kjc"]
 vertices = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)

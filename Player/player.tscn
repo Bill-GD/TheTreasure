@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://o47pxp8rypel"]
+[gd_scene load_steps=13 format=3 uid="uid://o47pxp8rypel"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
-[ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/player.png" id="2_omcrv"]
+[ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/Sprites/player.png" id="2_omcrv"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_fvq8p"]
 [ext_resource type="Script" path="res://Player/armor_bar.gd" id="4_gvwii"]
 [ext_resource type="Script" path="res://Player/player_hurt_box.gd" id="5_7ihcb"]
+[ext_resource type="AudioStream" uid="uid://bjoxxsoemtvn4" path="res://Assets/Sounds/player_hit.wav" id="7_fpvjw"]
 [ext_resource type="PackedScene" uid="uid://dp6ejx4q6x3r3" path="res://Player/Weapons/pistol.tscn" id="8_52ony"]
 [ext_resource type="PackedScene" uid="uid://cgdnd8lragkbe" path="res://Player/weapon_manager.tscn" id="8_ah56o"]
+[ext_resource type="AudioStream" uid="uid://bl133f7j6f5nm" path="res://Assets/Sounds/run.wav" id="8_y8xfi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
 
@@ -74,7 +76,15 @@ script = ExtResource("5_7ihcb")
 [node name="Collision" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_fu2e1")
 
+[node name="SoundEffect" type="AudioStreamPlayer" parent="HurtBox"]
+stream = ExtResource("7_fpvjw")
+volume_db = -5.0
+
 [node name="WeaponManager" parent="." instance=ExtResource("8_ah56o")]
+
+[node name="RunSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_y8xfi")
+volume_db = -10.0
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="timeout" from="ArmorRegen" to="." method="_on_armor_regen_timeout"]

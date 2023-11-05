@@ -1,22 +1,22 @@
 [gd_scene load_steps=9 format=3 uid="uid://bgslno0gv6x0u"]
 
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_5qfdj"]
-[ext_resource type="Texture2D" uid="uid://bio0dcjbwxhq8" path="res://Assets/bullet.png" id="2_l1pei"]
+[ext_resource type="Texture2D" uid="uid://bio0dcjbwxhq8" path="res://Assets/Sprites/bullet.png" id="2_bgqe8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffvgy"]
-atlas = ExtResource("2_l1pei")
+atlas = ExtResource("2_bgqe8")
 region = Rect2(0, 0, 14, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x2vvf"]
-atlas = ExtResource("2_l1pei")
+atlas = ExtResource("2_bgqe8")
 region = Rect2(15, 0, 14, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nghlr"]
-atlas = ExtResource("2_l1pei")
+atlas = ExtResource("2_bgqe8")
 region = Rect2(30, 0, 14, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbcbg"]
-atlas = ExtResource("2_l1pei")
+atlas = ExtResource("2_bgqe8")
 region = Rect2(45, 0, 14, 7)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8f5j8"]

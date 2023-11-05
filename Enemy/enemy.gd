@@ -50,6 +50,7 @@ func _process(_delta):
 	# sprite.flip_h = velocity.x > 0
 	
 	if player_detected and $AttackCooldown.is_stopped():
+		$ShootSound.play()
 		$SingleBulletAttack.shoot_bullet(self, target.global_position - global_position)
 		$AttackCooldown.start()
 	if player_close_range:

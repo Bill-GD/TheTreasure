@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://qhhtnyhinjv1"]
 
-[ext_resource type="Texture2D" uid="uid://bktu1pas68bop" path="res://Assets/bullet_impact.png" id="1_5osqs"]
+[ext_resource type="Texture2D" uid="uid://bktu1pas68bop" path="res://Assets/Sprites/bullet_impact.png" id="1_5osqs"]
 [ext_resource type="Script" path="res://OtherComponents/effect.gd" id="2_bygx3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hfm7i"]

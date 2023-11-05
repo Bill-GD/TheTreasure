@@ -40,6 +40,7 @@ func _physics_process(_delta) -> void:
 	var direction = Input.get_vector('aswd_left', 'aswd_right', 'aswd_up', 'aswd_down')
 	
 	velocity = direction * (SPRINT_SPEED if Input.is_key_pressed(KEY_SHIFT) else BASE_SPEED)
+	if Input.is_key_pressed(KEY_SHIFT) and velocity != Vector2.ZERO and not $RunSound.playing: $RunSound.play()
 	move_and_slide()
 	# move_and_collide(velocity * delta)
 
@@ -63,7 +64,7 @@ func _on_armor_regen_timeout() -> void:
 	var damage_text: DamageText = damage_text_scene.instantiate()
 	damage_text.text = '1'
 	damage_text.position = global_position
-	damage_text.add_theme_color_override("font_color", Color(0.4, 0.4, 0.4))
+	damage_text.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7))
 	get_parent().add_child(damage_text)
 
 func _on_died() -> void:
