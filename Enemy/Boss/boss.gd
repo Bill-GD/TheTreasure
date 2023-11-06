@@ -23,17 +23,19 @@ var level: int = 1
 var damage: int = BASE_DAMAGE * level
 var total_hp: int = BASE_HP * level
 var current_hp: int = total_hp
+var speed: float = BASE_SPEED
 
-var is_attacking: bool = false
 var is_aiming: bool = false
+var is_attacking: bool = false
 var pos_before_dash: Vector2
+var move_direction: Vector2
 
-var player_detected: bool = false
+var player_in_detect_range: bool = false
 var player_close_range: bool = false
 var has_seen_player: bool = false
+var lost_player: bool = true
 
 enum ATTACKS {
-	DASH,
 	SHOOT_NORMAL,
 	SHOOT_SPREAD,
 	SPIN,
@@ -49,44 +51,43 @@ func _ready():
 	$AttackCooldown.start()
 
 	$PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
-	velocity = Vector2.ZERO
+	move_direction = Vector2.ZERO
 
 func _physics_process(_delta):
 	if target:
-		if player_detected:
-			# aiming & rotation -> get player position
-			if is_aiming:
-				sprite.rotation = (target.global_position - global_position).angle()
-				collision.rotation = sprite.rotation
+		if not has_seen_player: move_direction = Vector2.ZERO
+		else:
+			print('is_aiming: %s' % is_aiming)
+			print('is_attacking: %s' % is_attacking)
+			print('has_seen_player: %s' % has_seen_player)
+			print('lost_player: %s' % lost_player)
+			print('player_in_detect_range: %s' % player_in_detect_range)
+			print('player_close_range: %s' % player_close_range)
+			print('current_attack: %s' % ATTACKS.keys()[current_attack])
+			print('move_direction: %s' % move_direction)
+			print()
 
-			# attacking
-			if is_attacking:
-				if current_attack == ATTACKS.DASH and (get_last_slide_collision() or (global_position - pos_before_dash).length() > 200):
-					velocity = Vector2.ZERO
-					is_attacking = false
-					$AttackCooldown.start()
-				if current_attack == ATTACKS.SPIN:
-					velocity = Vector2.ZERO
-					spin()
-					attack()
-			# sound ?
-		# navigation if player not detected
-		elif has_seen_player:
-			var path_direction = (nav_agent.get_next_path_position() - position).normalized()
-			velocity = path_direction * BASE_SPEED
-			sprite.rotation = path_direction.angle()
-		else: velocity = Vector2.ZERO
-	else: velocity = Vector2.ZERO
+			if lost_player: # if seen, lost -> pathfind
+				move_direction = nav_agent.get_next_path_position() - position
+				sprite.rotation = move_direction.angle()
+			else: # if seen, not lost
+				if player_in_detect_range and not player_close_range and not is_attacking: # if seen, not lost, not close, not attacking -> chase
+					move_direction = target.global_position - global_position
+					sprite.rotation = move_direction.angle()
+				elif player_close_range:
+					move_direction = Vector2.ZERO
+					if is_aiming: sprite.rotation = (target.global_position - global_position).angle()
+					if is_attacking:
+						if player_close_range and current_attack == ATTACKS.SPIN:
+							spin()
+							attack()
+	else: move_direction = Vector2.ZERO
+
+	velocity = move_direction.normalized() * speed
+	move_and_slide()
 
 	if current_hp <= 0:
 		died.emit()
-
-	# move_and_collide(velocity * delta)
-	move_and_slide()
-
-func prepare_attack():
-	$AttackTimer.start()
-	is_aiming = true
 
 func _on_attack_timer_timeout():
 	is_attacking = true
@@ -94,10 +95,8 @@ func _on_attack_timer_timeout():
 	pos_before_dash = global_position
 	await get_tree().create_timer(0.2).timeout
 
-	if current_attack == ATTACKS.DASH:
-		velocity = Vector2.RIGHT.rotated(sprite.rotation) * BASE_SPEED * 10
 	if current_attack == ATTACKS.SHOOT_NORMAL or current_attack == ATTACKS.SHOOT_SPREAD:
-		velocity = (target.global_position - global_position).normalized() * (BASE_SPEED / 3) * (level - 1)
+		velocity = (target.global_position - global_position).normalized() * (speed / 3) * (level - 1)
 		attack()
 		is_attacking = false
 		$AttackCooldown.start()
@@ -107,7 +106,8 @@ func _on_attack_cooldown_timeout():
 		$AttackCooldown.start()
 		return
 	current_attack = ATTACKS[available_attacks[randi() % len(available_attacks)]]
-	prepare_attack()
+	$AttackTimer.start()
+	is_aiming = true
 
 func attack():
 	var shoot_direction: Vector2 = (target.global_position - global_position).normalized()
@@ -148,11 +148,11 @@ func _on_died():
 	queue_free()
 
 func _on_player_detection_changed():
-	# attacks
-	if not player_detected: available_attacks = []
-	if player_detected and not player_close_range: available_attacks = ['DASH']
+	if player_in_detect_range and not player_close_range: speed = BASE_SPEED * 2
+	elif player_close_range: speed = BASE_SPEED
+
+	if not player_in_detect_range: available_attacks = []
 	if player_close_range: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
 
 func _on_enemy_navigation_navigation_finished():
-	velocity = Vector2.ZERO
-	pass # Replace with function body.
+	move_direction = Vector2.ZERO

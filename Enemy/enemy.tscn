@@ -60,7 +60,7 @@ one_shot = true
 
 [node name="ShootSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_gqml5")
-volume_db = -10.0
+volume_db = -20.0
 max_distance = 1000.0
 
 [connection signal="died" from="." to="." method="_on_died"]

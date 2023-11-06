@@ -18,14 +18,15 @@ const BASE_HP: int = 50
 const BASE_DAMAGE: int = 4
 
 var move_direction: Vector2
-var target_direction: Vector2
 var level: int = 1
 var total_hp: int = BASE_HP * level
 var current_hp: int = total_hp * level
 var damage: int = BASE_DAMAGE * level
-var player_detected: bool = false
+
+var player_in_detect_range: bool = false
 var player_close_range: bool = false
 var has_seen_player: bool = false
+var lost_player: bool = true
 
 
 func _ready():
@@ -36,28 +37,28 @@ func _ready():
 
 func _process(_delta):
 	if target:
-		if player_detected:
-			target_direction = (target.global_position - global_position).normalized()
-			move_direction = target_direction
-		elif not has_seen_player: move_direction = Vector2.ZERO
+		if not has_seen_player: move_direction = Vector2.ZERO
 		else:
-			move_direction = (nav_agent.get_next_path_position() - position).normalized()
-	else: target_direction = Vector2.ZERO
+			if lost_player: # if has seen and lost -> pathfind
+				move_direction = nav_agent.get_next_path_position() - position
+			else:
+				if $AttackCooldown.is_stopped(): # if seen, not lost -> attack
+					$ShootSound.play()
+					$SingleBulletAttack.shoot_bullet(self, target.global_position - global_position)
+					$AttackCooldown.start()
+				if player_close_range: # if seen, not lost and is close
+					move_direction = (target.global_position - global_position).orthogonal()
+				else: # if seen, not lost and not close
+					move_direction = target.global_position - global_position
+	else: move_direction = Vector2.ZERO
+ 
+	# sprite.flip_h = velocity.x > 0
+
+	velocity = move_direction.normalized() * BASE_SPEED
+	move_and_slide()
 
 	if current_hp <= 0:
 		died.emit()
-
-	# sprite.flip_h = velocity.x > 0
-	
-	if player_detected and $AttackCooldown.is_stopped():
-		$ShootSound.play()
-		$SingleBulletAttack.shoot_bullet(self, target.global_position - global_position)
-		$AttackCooldown.start()
-	if player_close_range:
-		move_direction = (target.global_position - global_position).orthogonal().normalized()
-
-	velocity = move_direction * BASE_SPEED
-	move_and_slide()
 
 # func take_damage(amount: int):
 # 	current_hp -= amount

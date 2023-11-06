@@ -1,3 +1,4 @@
+res://Enemy
 res://OtherComponents/SoundScenes
 res://Assets
 res://OtherComponents/Item
@@ -7,7 +8,6 @@ res://OtherComponents/DeathEffect
 res://Bullet
 res://Player
 D:/Code/Godot/TheTreasure/Player/Weapon
-res://Enemy
 res://OtherComponents/DamageText
 res://Enemy/Boss
 D:/Microsoft VS Code

@@ -61,6 +61,7 @@ offset_right = 202.0
 [node name="SingleBulletAttack" parent="." instance=ExtResource("6_hmoqa")]
 
 [node name="PlayerDetection" parent="." instance=ExtResource("5_djr86")]
+rotation = -1.57079
 
 [node name="EnemyNavigation" parent="." instance=ExtResource("7_ehxm1")]
 

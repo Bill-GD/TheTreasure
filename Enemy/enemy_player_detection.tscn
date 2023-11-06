@@ -23,6 +23,9 @@ collision_layer = 0
 [node name="CloseRangeShape" type="CollisionShape2D" parent="CloseRange"]
 shape = SubResource("CircleShape2D_6u3vj")
 
+[node name="EnemyVision" type="RayCast2D" parent="."]
+collision_mask = 9
+
 [connection signal="player_detection_changed" from="." to="." method="_on_player_detection_changed"]
 [connection signal="body_entered" from="DetectRange" to="." method="_on_detect_range_body_entered"]
 [connection signal="body_exited" from="DetectRange" to="." method="_on_detect_range_body_exited"]

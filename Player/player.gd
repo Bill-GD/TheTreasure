@@ -13,7 +13,7 @@ var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/de
 
 signal died
 
-const BASE_SPEED: float = 150
+const BASE_SPEED: float = 180
 const BASE_HP: int = 50
 const BASE_ARMOR: int = 20
 const SPRINT_SPEED: float = BASE_SPEED * 2

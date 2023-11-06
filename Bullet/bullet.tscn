@@ -36,7 +36,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nu4m6"]
@@ -52,6 +52,7 @@ script = ExtResource("1_5qfdj")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8f5j8")
+frame_progress = 0.541564
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 rotation = 1.57079
