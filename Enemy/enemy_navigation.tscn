@@ -3,5 +3,4 @@
 [ext_resource type="Script" path="res://Enemy/enemy_navigation.gd" id="1_4crlo"]
 
 [node name="EnemyNavigation" type="NavigationAgent2D"]
-target_desired_distance = 20.0
 script = ExtResource("1_4crlo")

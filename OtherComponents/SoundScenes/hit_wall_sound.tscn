@@ -8,3 +8,5 @@ stream = ExtResource("1_vteqg")
 volume_db = -10.0
 max_distance = 500.0
 script = ExtResource("2_3d5q3")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

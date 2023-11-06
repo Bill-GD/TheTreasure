@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbcofsvyw517t"]
+[gd_scene load_steps=16 format=3 uid="uid://bbcofsvyw517t"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_jenkf"]
 [ext_resource type="Texture2D" uid="uid://802layseg5j3" path="res://Assets/Sprites/enemy.png" id="2_fe7ki"]
@@ -9,6 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="6_av5fk"]
 [ext_resource type="PackedScene" uid="uid://bx7nhba8s6f20" path="res://Enemy/enemy_navigation.tscn" id="7_ytkpd"]
 [ext_resource type="AudioStream" uid="uid://cb0dvo6anoc1i" path="res://Assets/Sounds/laser_shot.wav" id="9_gqml5"]
+[ext_resource type="PackedScene" uid="uid://osadm8a0pgm3" path="res://OtherComponents/States/state_machine.tscn" id="10_gjj65"]
+[ext_resource type="PackedScene" uid="uid://cul8pbr1olj2p" path="res://OtherComponents/States/EnemyStates/idle.tscn" id="11_yu6g0"]
+[ext_resource type="PackedScene" uid="uid://cuiks3hvwhi44" path="res://OtherComponents/States/EnemyStates/search.tscn" id="12_fjuae"]
+[ext_resource type="PackedScene" uid="uid://bcaw2alghh537" path="res://OtherComponents/States/EnemyStates/attack.tscn" id="13_f0v6l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pds5s"]
 radius = 15.0
@@ -62,6 +66,15 @@ one_shot = true
 stream = ExtResource("9_gqml5")
 volume_db = -20.0
 max_distance = 1000.0
+
+[node name="StateMachine" parent="." instance=ExtResource("10_gjj65")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("11_yu6g0")]
+
+[node name="Search" parent="StateMachine" instance=ExtResource("12_fjuae")]
+
+[node name="Attack" parent="StateMachine" instance=ExtResource("13_f0v6l")]
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]

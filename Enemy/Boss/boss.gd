@@ -54,34 +54,25 @@ func _ready():
 	move_direction = Vector2.ZERO
 
 func _physics_process(_delta):
-	if target:
-		if not has_seen_player: move_direction = Vector2.ZERO
-		else:
-			print('is_aiming: %s' % is_aiming)
-			print('is_attacking: %s' % is_attacking)
-			print('has_seen_player: %s' % has_seen_player)
-			print('lost_player: %s' % lost_player)
-			print('player_in_detect_range: %s' % player_in_detect_range)
-			print('player_close_range: %s' % player_close_range)
-			print('current_attack: %s' % ATTACKS.keys()[current_attack])
-			print('move_direction: %s' % move_direction)
-			print()
+	# if target:
+	# 	if not has_seen_player: move_direction = Vector2.ZERO
+	# 	else:
 
-			if lost_player: # if seen, lost -> pathfind
-				move_direction = nav_agent.get_next_path_position() - position
-				sprite.rotation = move_direction.angle()
-			else: # if seen, not lost
-				if player_in_detect_range and not player_close_range and not is_attacking: # if seen, not lost, not close, not attacking -> chase
-					move_direction = target.global_position - global_position
-					sprite.rotation = move_direction.angle()
-				elif player_close_range:
-					move_direction = Vector2.ZERO
-					if is_aiming: sprite.rotation = (target.global_position - global_position).angle()
-					if is_attacking:
-						if player_close_range and current_attack == ATTACKS.SPIN:
-							spin()
-							attack()
-	else: move_direction = Vector2.ZERO
+	# 		if lost_player: # if seen, lost -> pathfind
+	# 			move_direction = nav_agent.get_next_path_position() - position
+	# 			sprite.rotation = move_direction.angle()
+	# 		else: # if seen, not lost
+	# 			if player_in_detect_range and not player_close_range and not is_attacking: # if seen, not lost, not close, not attacking -> chase
+	# 				move_direction = target.global_position - global_position
+	# 				sprite.rotation = move_direction.angle()
+	# 			elif player_close_range:
+	# 				move_direction = Vector2.ZERO
+	# 				if is_aiming: sprite.rotation = (target.global_position - global_position).angle()
+	# 				if is_attacking:
+	# 					if player_close_range and current_attack == ATTACKS.SPIN:
+	# 						spin()
+	# 						attack()
+	# else: move_direction = Vector2.ZERO
 
 	velocity = move_direction.normalized() * speed
 	move_and_slide()
@@ -153,6 +144,3 @@ func _on_player_detection_changed():
 
 	if not player_in_detect_range: available_attacks = []
 	if player_close_range: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
-
-func _on_enemy_navigation_navigation_finished():
-	move_direction = Vector2.ZERO

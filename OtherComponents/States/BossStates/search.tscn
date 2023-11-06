@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbil5bw6jj1o1"]
+
+[ext_resource type="Script" path="res://OtherComponents/States/BossStates/search.gd" id="1_v11d4"]
+
+[node name="Search" type="Node2D"]
+script = ExtResource("1_v11d4")

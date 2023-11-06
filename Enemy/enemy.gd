@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var collision: CollisionShape2D = $Collision
 @onready var sprite: Sprite2D = $Sprite
 @onready var nav_agent: NavigationAgent2D = $EnemyNavigation
+@onready var attack_cooldown_timer: Timer = $AttackCooldown
 
 var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
 var item_scene: PackedScene = load("res://OtherComponents/Item/item.tscn")
@@ -32,26 +33,9 @@ var lost_player: bool = true
 func _ready():
 	target = get_parent().get_node("Player")
 	health_bar.update_health(current_hp, total_hp)
-	$PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
 	velocity = Vector2.ZERO
 
-func _process(_delta):
-	if target:
-		if not has_seen_player: move_direction = Vector2.ZERO
-		else:
-			if lost_player: # if has seen and lost -> pathfind
-				move_direction = nav_agent.get_next_path_position() - position
-			else:
-				if $AttackCooldown.is_stopped(): # if seen, not lost -> attack
-					$ShootSound.play()
-					$SingleBulletAttack.shoot_bullet(self, target.global_position - global_position)
-					$AttackCooldown.start()
-				if player_close_range: # if seen, not lost and is close
-					move_direction = (target.global_position - global_position).orthogonal()
-				else: # if seen, not lost and not close
-					move_direction = target.global_position - global_position
-	else: move_direction = Vector2.ZERO
- 
+func _process(_delta): 
 	# sprite.flip_h = velocity.x > 0
 
 	velocity = move_direction.normalized() * BASE_SPEED
@@ -59,11 +43,6 @@ func _process(_delta):
 
 	if current_hp <= 0:
 		died.emit()
-
-# func take_damage(amount: int):
-# 	current_hp -= amount
-# 	if current_hp <= 0:
-# 		die()
 
 func _on_died():
 	if randf() > 0.5:
@@ -77,6 +56,3 @@ func _on_died():
 	get_tree().root.add_child(death_effect)
 
 	queue_free()
-
-func _on_player_detection_changed():
-	pass

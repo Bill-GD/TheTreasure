@@ -20,12 +20,12 @@ func _process(_delta) -> void:
 
 		if line_of_sight.get_collider() is Player:
 			if not enemy_node.has_seen_player: enemy_node.has_seen_player = true
-			enemy_node.move_direction = target_direction
+			# enemy_node.move_direction = target_direction
 			enemy_node.lost_player = false
 
 		if not line_of_sight.get_collider() is Player and enemy_node.has_seen_player and not enemy_node.lost_player:
-			enemy_node.nav_agent.update_target_position(enemy_node.target.global_position)
 			enemy_node.lost_player = true
+			# enemy_node.nav_agent.update_target_position(enemy_node.target.global_position)
 
 func _on_detect_range_body_entered(body: Node2D):
 	if body != null and body is Player:

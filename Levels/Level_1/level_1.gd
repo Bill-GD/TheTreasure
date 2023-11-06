@@ -9,8 +9,8 @@ var total_enemy_count: int
 
 func _ready():
 	setup_enemy(1)
-	# $Level1_Map/DarkArea.queue_free()
-	# $Level1_Map/BossDoor.queue_free()
+	$Level1_Map/DarkArea.queue_free()
+	$Level1_Map/BossDoor.queue_free()
 
 func _on_boss_died():
 	$LevelCooldown.start()

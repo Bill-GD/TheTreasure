@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcaw2alghh537"]
+
+[ext_resource type="Script" path="res://OtherComponents/States/EnemyStates/attack.gd" id="1_g6op8"]
+
+[node name="Attack" type="Node2D"]
+script = ExtResource("1_g6op8")

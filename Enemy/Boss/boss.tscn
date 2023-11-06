@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3i0h7ctlmm2r"]
+[gd_scene load_steps=17 format=3 uid="uid://d3i0h7ctlmm2r"]
 
 [ext_resource type="Script" path="res://Enemy/Boss/boss.gd" id="1_hfbkv"]
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="2_mxe4o"]
@@ -9,6 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="6_hmoqa"]
 [ext_resource type="PackedScene" uid="uid://bx7nhba8s6f20" path="res://Enemy/enemy_navigation.tscn" id="7_ehxm1"]
 [ext_resource type="AudioStream" uid="uid://cb0dvo6anoc1i" path="res://Assets/Sounds/laser_shot.wav" id="9_o01r7"]
+[ext_resource type="PackedScene" uid="uid://osadm8a0pgm3" path="res://OtherComponents/States/state_machine.tscn" id="10_qx70k"]
+[ext_resource type="PackedScene" uid="uid://ctinyr32vfngs" path="res://OtherComponents/States/BossStates/chase.tscn" id="11_npgb5"]
+[ext_resource type="PackedScene" uid="uid://cju77tvnkva5n" path="res://OtherComponents/States/BossStates/idle.tscn" id="12_kmqhc"]
+[ext_resource type="PackedScene" uid="uid://chs37re5c5rql" path="res://OtherComponents/States/BossStates/attack.tscn" id="13_5gtif"]
+[ext_resource type="PackedScene" uid="uid://cbil5bw6jj1o1" path="res://OtherComponents/States/BossStates/search.tscn" id="14_5wo2i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
 
@@ -70,10 +75,20 @@ stream = ExtResource("9_o01r7")
 volume_db = -10.0
 max_distance = 1000.0
 
+[node name="StateMachine" parent="." instance=ExtResource("10_qx70k")]
+initial_state = NodePath("Idle")
+
+[node name="Idle" parent="StateMachine" instance=ExtResource("12_kmqhc")]
+
+[node name="Chase" parent="StateMachine" instance=ExtResource("11_npgb5")]
+
+[node name="Attack" parent="StateMachine" instance=ExtResource("13_5gtif")]
+
+[node name="Search" parent="StateMachine" instance=ExtResource("14_5wo2i")]
+
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
 [connection signal="mouse_entered" from="HurtBox" to="HurtBox" method="_on_mouse_entered"]
-[connection signal="navigation_finished" from="EnemyNavigation" to="." method="_on_enemy_navigation_navigation_finished"]
