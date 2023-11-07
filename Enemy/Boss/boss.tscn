@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3i0h7ctlmm2r"]
+[gd_scene load_steps=21 format=3 uid="uid://d3i0h7ctlmm2r"]
 
 [ext_resource type="Script" path="res://Enemy/Boss/boss.gd" id="1_hfbkv"]
 [ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="2_mxe4o"]
@@ -14,6 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://cju77tvnkva5n" path="res://OtherComponents/States/BossStates/idle.tscn" id="12_kmqhc"]
 [ext_resource type="PackedScene" uid="uid://chs37re5c5rql" path="res://OtherComponents/States/BossStates/attack.tscn" id="13_5gtif"]
 [ext_resource type="PackedScene" uid="uid://cbil5bw6jj1o1" path="res://OtherComponents/States/BossStates/search.tscn" id="14_5wo2i"]
+[ext_resource type="PackedScene" uid="uid://dr5ird588h6aa" path="res://OtherComponents/States/BossStates/choose_attack.tscn" id="15_06n64"]
+[ext_resource type="PackedScene" uid="uid://cxquil0gjtad0" path="res://OtherComponents/States/BossStates/spin.tscn" id="16_xsrkq"]
+[ext_resource type="PackedScene" uid="uid://dcof1is7o3p1c" path="res://OtherComponents/States/BossStates/spread_shot.tscn" id="17_nh0r0"]
+[ext_resource type="PackedScene" uid="uid://dyi04f1bnusa8" path="res://OtherComponents/States/BossStates/single_shot.tscn" id="18_o6xwm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x37nr"]
 
@@ -34,13 +38,6 @@ texture = ExtResource("2_mxe4o")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x37nr")
-
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="AttackCooldown" type="Timer" parent="."]
-one_shot = true
 
 [node name="AfterSpinCooldown" type="Timer" parent="."]
 wait_time = 2.0
@@ -82,13 +79,36 @@ initial_state = NodePath("Idle")
 
 [node name="Chase" parent="StateMachine" instance=ExtResource("11_npgb5")]
 
-[node name="Attack" parent="StateMachine" instance=ExtResource("13_5gtif")]
-
 [node name="Search" parent="StateMachine" instance=ExtResource("14_5wo2i")]
 
+[node name="Attack" parent="StateMachine" instance=ExtResource("13_5gtif")]
+
+[node name="StateMachine" parent="StateMachine/Attack" instance=ExtResource("10_qx70k")]
+initial_state = NodePath("ChooseAttack")
+
+[node name="ChooseAttack" parent="StateMachine/Attack/StateMachine" instance=ExtResource("15_06n64")]
+
+[node name="AttackCooldown" type="Timer" parent="StateMachine/Attack/StateMachine/ChooseAttack"]
+one_shot = true
+
+[node name="SingleShot" parent="StateMachine/Attack/StateMachine" instance=ExtResource("18_o6xwm")]
+
+[node name="AttackTimer" type="Timer" parent="StateMachine/Attack/StateMachine/SingleShot"]
+wait_time = 0.5
+one_shot = true
+
+[node name="SpreadShot" parent="StateMachine/Attack/StateMachine" instance=ExtResource("17_nh0r0")]
+
+[node name="AttackTimer" type="Timer" parent="StateMachine/Attack/StateMachine/SpreadShot"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Spin" parent="StateMachine/Attack/StateMachine" instance=ExtResource("16_xsrkq")]
+
 [connection signal="died" from="." to="." method="_on_died"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
 [connection signal="mouse_entered" from="HurtBox" to="HurtBox" method="_on_mouse_entered"]
+[connection signal="timeout" from="StateMachine/Attack/StateMachine/ChooseAttack/AttackCooldown" to="StateMachine/Attack/StateMachine/ChooseAttack" method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/StateMachine/SingleShot/AttackTimer" to="StateMachine/Attack/StateMachine/SingleShot" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Attack/StateMachine/SpreadShot/AttackTimer" to="StateMachine/Attack/StateMachine/SpreadShot" method="_on_attack_timer_timeout"]

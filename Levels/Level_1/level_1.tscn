@@ -8,16 +8,16 @@
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_4uoso")
 
-[node name="Player" parent="." instance=ExtResource("2_2orbm")]
-position = Vector2(469, 889)
-
 [node name="LevelCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
+[node name="Level1_Map" parent="." instance=ExtResource("5_13ofh")]
+
+[node name="Player" parent="." instance=ExtResource("2_2orbm")]
+position = Vector2(453, 883)
+
 [node name="Boss" parent="." instance=ExtResource("3_v7rua")]
 position = Vector2(4170, 811)
-
-[node name="Level1_Map" parent="." instance=ExtResource("5_13ofh")]
 
 [connection signal="timeout" from="LevelCooldown" to="." method="_on_level_cooldown_timeout"]

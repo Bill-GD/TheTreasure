@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://djwlwapl5m8st"]
 
-[ext_resource type="AudioStream" uid="uid://glwvx4pdw8eq" path="res://Assets/Sounds/metal_hit.wav" id="1_vteqg"]
+[ext_resource type="AudioStream" uid="uid://cnx25cnt2nfus" path="res://Assets/Sounds/stone_wall_hit.wav" id="1_cnyqh"]
 [ext_resource type="Script" path="res://OtherComponents/SoundScenes/external_sound.gd" id="2_3d5q3"]
 
 [node name="HitWallSound" type="AudioStreamPlayer2D"]
-stream = ExtResource("1_vteqg")
-volume_db = -10.0
+stream = ExtResource("1_cnyqh")
+volume_db = 10.0
 max_distance = 500.0
 script = ExtResource("2_3d5q3")
 

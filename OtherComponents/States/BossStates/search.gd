@@ -5,7 +5,10 @@ extends State
 
 
 func enter(_msg := {}):
-	print('Boss state: Search')
+	# print('Boss state: Search')
+	get_parent().get_node('Attack/StateMachine').set_process(false)
+	get_parent().get_node('Attack/StateMachine').set_physics_process(false)
+	
 	boss_node.nav_agent.update_target_position(boss_node.target.global_position)
 	if not boss_node.nav_agent.is_connected('navigation_finished', _on_navigation_finished): boss_node.nav_agent.connect('navigation_finished', _on_navigation_finished)
 

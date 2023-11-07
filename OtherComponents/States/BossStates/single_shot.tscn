@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyi04f1bnusa8"]
+
+[ext_resource type="Script" path="res://OtherComponents/States/BossStates/single_shot.gd" id="1_cdh3a"]
+
+[node name="SingleShot" type="Node2D"]
+script = ExtResource("1_cdh3a")

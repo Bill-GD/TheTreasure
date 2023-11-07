@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcof1is7o3p1c"]
+
+[ext_resource type="Script" path="res://OtherComponents/States/BossStates/spread_shot.gd" id="1_l0l8e"]
+
+[node name="SpreadShot" type="Node2D"]
+script = ExtResource("1_l0l8e")
