@@ -78,7 +78,7 @@ shape = SubResource("CircleShape2D_fu2e1")
 
 [node name="SoundEffect" type="AudioStreamPlayer" parent="HurtBox"]
 stream = ExtResource("7_fpvjw")
-volume_db = -5.0
+volume_db = -10.0
 
 [node name="WeaponManager" parent="." instance=ExtResource("8_ah56o")]
 

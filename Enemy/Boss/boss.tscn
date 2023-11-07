@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3i0h7ctlmm2r"]
+[gd_scene load_steps=22 format=3 uid="uid://d3i0h7ctlmm2r"]
 
 [ext_resource type="Script" path="res://Enemy/Boss/boss.gd" id="1_hfbkv"]
-[ext_resource type="Texture2D" uid="uid://c31hj0c1cmsuq" path="res://icon.svg" id="2_mxe4o"]
+[ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/Sprites/player.png" id="2_yo13b"]
 [ext_resource type="Script" path="res://Enemy/enemy_hurt_box.gd" id="3_024jo"]
+[ext_resource type="Texture2D" uid="uid://dh16a8cet0ls2" path="res://Assets/Sprites/pistol.png" id="3_mkhbb"]
 [ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="3_udodu"]
 [ext_resource type="AudioStream" uid="uid://d2fsjv4d7gmfr" path="res://Assets/Sounds/hit.wav" id="4_irfha"]
 [ext_resource type="PackedScene" uid="uid://d356moy0s5ygo" path="res://Enemy/Boss/boss_player_detection.tscn" id="5_djr86"]
@@ -32,9 +33,22 @@ motion_mode = 1
 script = ExtResource("1_hfbkv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-modulate = Color(1, 0.113725, 0.105882, 1)
-scale = Vector2(0.156, 0.156)
-texture = ExtResource("2_mxe4o")
+rotation = -1.57079
+scale = Vector2(0.715, 0.715)
+
+[node name="Body" type="Sprite2D" parent="Sprite"]
+modulate = Color(1, 0.337255, 0.270588, 1)
+position = Vector2(2.38419e-07, 0)
+rotation = -3.14159
+scale = Vector2(0.133, 0.128)
+texture = ExtResource("2_yo13b")
+offset = Vector2(0, 43.65)
+
+[node name="Weapon" type="Sprite2D" parent="Sprite"]
+position = Vector2(1.99978, -37)
+rotation = -3.14159
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_mkhbb")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x37nr")
@@ -44,6 +58,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("3_024jo")
@@ -53,16 +68,18 @@ shape = SubResource("CircleShape2D_btnb1")
 
 [node name="SoundEffect" type="AudioStreamPlayer2D" parent="HurtBox"]
 stream = ExtResource("4_irfha")
-volume_db = -10.0
+volume_db = -5.0
 
 [node name="HealthBar" parent="." instance=ExtResource("3_udodu")]
-offset_left = -18.0
-offset_top = 5.00006
-offset_right = 202.0
+offset_left = -27.0
+offset_top = 6.00009
+offset_right = 193.0
+offset_bottom = 67.0
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("6_hmoqa")]
 
 [node name="PlayerDetection" parent="." instance=ExtResource("5_djr86")]
+visible = false
 rotation = -1.57079
 
 [node name="EnemyNavigation" parent="." instance=ExtResource("7_ehxm1")]

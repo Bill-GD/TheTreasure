@@ -8,7 +8,7 @@ extends Node2D
 var total_enemy_count: int
 
 func _ready():
-	setup_enemy(1)
+	setup_enemy(0)
 	$Level1_Map/DarkArea.queue_free()
 	$Level1_Map/BossDoor.queue_free()
 

@@ -15,4 +15,4 @@ script = ExtResource("2_eyqdi")
 
 [node name="SoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_tta42")
-volume_db = -10.0
+volume_db = -13.0

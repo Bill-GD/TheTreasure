@@ -2,6 +2,8 @@
 extends State
 
 @onready var boss_node: BossEnemy = owner as BossEnemy
+@onready var weapon_node: Sprite2D
+@onready var assault_tex: Texture2D = preload('res://Assets/Sprites/assault_rifle.png')
 
 var tween: Tween
 var is_spinning: bool = false
@@ -9,27 +11,30 @@ var has_attacked: bool = false
 @onready var frames_between_shots: int = max(1, floor(6) / boss_node.level)
 var current_frame: int = 0
 
-
-func enter(_msg := {}):
+func enter(_msg := {}) -> void:
 	# print('Boss chosen attack: Spin')
+	weapon_node = boss_node.sprite.get_node('Weapon')
+	weapon_node.set_texture(assault_tex)
 	has_attacked = false
+	boss_node.sprite.rotation = (boss_node.target.global_position - boss_node.global_position).angle()
 	spin()
 
 func update(_delta: float) -> void:
 	if has_attacked:
-		has_attacked = false
-		current_frame = 0
 		state_machine.transition_to('ChooseAttack')
 		return
 	else:
 		if is_spinning:
 			if current_frame == 0:
 				boss_node.get_node('ShootSound').play()
-				boss_node.get_node('SingleBulletAttack').shoot_bullet(boss_node, Vector2.RIGHT.rotated(boss_node.sprite.rotation), boss_node.global_position + Vector2.RIGHT.rotated(boss_node.sprite.rotation) * boss_node.collision.shape.radius, 100)
+				boss_node.get_node('SingleBulletAttack').shoot_bullet(boss_node, Vector2.RIGHT.rotated(boss_node.sprite.rotation), weapon_node.global_position + Vector2.RIGHT.rotated(boss_node.sprite.rotation) * weapon_node.get_rect().size.x / 10, 100)
 			current_frame = (current_frame + 1) % frames_between_shots
 		else:
-			# await get_tree().create_timer(1 + boss_node.level * 0.2).timeout
 			has_attacked = true
+
+func exit() -> void:
+	has_attacked = false
+	current_frame = 0
 
 func spin():
 	is_spinning = true

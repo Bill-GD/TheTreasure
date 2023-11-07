@@ -5,7 +5,6 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var nav_agent: NavigationAgent2D = $EnemyNavigation
-# @onready var attack_timer: Timer = $EnemyNavigation
 
 var death_effect_scene: PackedScene = load("res://OtherComponents/DeathEffect/death_effect.tscn")
 var item_scene: PackedScene = load("res://OtherComponents/Item/item.tscn")
@@ -20,7 +19,7 @@ const BASE_DAMAGE: int = 7
 
 var tween: Tween
 
-var level: int = 3
+var level: int = 1
 var damage: int = BASE_DAMAGE * level
 var total_hp: int = BASE_HP * level
 var current_hp: int = total_hp
@@ -84,4 +83,6 @@ func _on_player_detection_changed():
 	elif player_close_range: speed = BASE_SPEED
 
 	if not player_in_detect_range: available_attacks = []
-	if player_close_range: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
+	if player_close_range:
+		match level:
+			1: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']

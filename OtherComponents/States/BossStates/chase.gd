@@ -10,8 +10,9 @@ func enter(_msg := {}):
 	get_parent().get_node('Attack/StateMachine').set_physics_process(false)
 
 func update(_delta: float) -> void:
-	boss_node.move_direction = boss_node.target.global_position - boss_node.global_position
-	boss_node.sprite.rotation = boss_node.move_direction.angle()
+	if boss_node.target:
+		boss_node.move_direction = boss_node.target.global_position - boss_node.global_position
+		boss_node.sprite.rotation = boss_node.move_direction.angle()
 
 	# If seen, lost -> pathfind
 	if boss_node.has_seen_player:

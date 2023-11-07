@@ -14,7 +14,7 @@ signal died
 
 var target: Player
 
-const BASE_SPEED: float = 100
+const BASE_SPEED: float = 130
 const BASE_HP: int = 50
 const BASE_DAMAGE: int = 4
 
@@ -35,9 +35,7 @@ func _ready():
 	health_bar.update_health(current_hp, total_hp)
 	velocity = Vector2.ZERO
 
-func _process(_delta): 
-	# sprite.flip_h = velocity.x > 0
-
+func _process(_delta):
 	velocity = move_direction.normalized() * BASE_SPEED
 	move_and_slide()
 
