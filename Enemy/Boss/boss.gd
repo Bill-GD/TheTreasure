@@ -11,13 +11,12 @@ var item_scene: PackedScene = load("res://OtherComponents/Item/item.tscn")
 
 signal died
 
-var target: Player
-
 const BASE_SPEED: float = 150
 const BASE_HP: int = 200
 const BASE_DAMAGE: int = 7
 
 var tween: Tween
+var target: Player
 
 var level: int = 1
 var damage: int = BASE_DAMAGE * level
@@ -44,7 +43,6 @@ var available_attacks = []
 
 func _ready():
 	health_bar.update_health(current_hp, total_hp)
-	target = get_parent().get_node('Player')
 
 	$PlayerDetection.connect('player_detection_changed', _on_player_detection_changed)
 	move_direction = Vector2.ZERO

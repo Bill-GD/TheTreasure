@@ -1,23 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bidysi0fe05rn"]
+[gd_scene load_steps=3 format=3 uid="uid://bidysi0fe05rn"]
 
-[ext_resource type="Script" path="res://Levels/Level_1/level_1.gd" id="1_4uoso"]
-[ext_resource type="PackedScene" uid="uid://o47pxp8rypel" path="res://Player/player.tscn" id="2_2orbm"]
-[ext_resource type="PackedScene" uid="uid://d3i0h7ctlmm2r" path="res://Enemy/Boss/boss.tscn" id="3_v7rua"]
+[ext_resource type="Script" path="res://Levels/level_manager.gd" id="1_hxhbl"]
 [ext_resource type="PackedScene" uid="uid://u3d2ywqdkp70" path="res://Levels/Level_1/level_1_map.tscn" id="5_13ofh"]
 
-[node name="Level1" type="Node2D"]
-script = ExtResource("1_4uoso")
+[node name="Level1" type="Node2D" node_paths=PackedStringArray("level_map")]
+script = ExtResource("1_hxhbl")
+level_map = NodePath("Level1_Map")
 
 [node name="LevelCooldown" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="Level1_Map" parent="." instance=ExtResource("5_13ofh")]
-
-[node name="Player" parent="." instance=ExtResource("2_2orbm")]
-position = Vector2(453, 883)
-
-[node name="Boss" parent="." instance=ExtResource("3_v7rua")]
-position = Vector2(4170, 811)
 
 [connection signal="timeout" from="LevelCooldown" to="." method="_on_level_cooldown_timeout"]

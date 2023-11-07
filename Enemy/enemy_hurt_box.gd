@@ -1,7 +1,7 @@
 extends Area2D
 
-@onready var player: Player = get_parent().get_parent().get_node('Player')
 @onready var parent: CharacterBody2D = get_parent()
+@onready var player: Player = parent.target
 @onready var health_bar: HealthBar = get_parent().get_node('HealthBar')
 
 func _on_body_entered(body:Node2D):
