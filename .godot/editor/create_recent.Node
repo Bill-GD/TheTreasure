@@ -1,3 +1,5 @@
+TileMap
+GPUParticles2D
 Marker2D
 Sprite2D
 AnimatedSprite2D
@@ -13,7 +15,6 @@ Node2D
 CanvasModulate
 CollisionShape2D
 Area2D
-TileMap
 NavigationAgent2D
 Label
 ProgressBar

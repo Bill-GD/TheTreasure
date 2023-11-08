@@ -15,14 +15,15 @@ signal died
 @onready var target: Player = get_parent().player
 
 const BASE_SPEED: float = 130
-const BASE_HP: int = 40
-const BASE_DAMAGE: int = 4
+const BASE_HP: int = 30
+const BASE_DAMAGE: int = 3
 
 var move_direction: Vector2
 var level: int = 1
-var total_hp: int = BASE_HP * level
-var current_hp: int = total_hp * level
-var damage: int = BASE_DAMAGE * level
+@onready var total_hp: int = BASE_HP * level
+@onready var current_hp: int = total_hp
+@onready var damage: int = BASE_DAMAGE * level
+var circling_direction: int
 
 var player_in_detect_range: bool = false
 var player_close_range: bool = false
@@ -46,10 +47,10 @@ func _on_died():
 		var health_item: Item = item_scene.instantiate()
 		health_item.position = global_position
 		health_item.item_type = Item.ITEM_TYPE.HEALTH
-		get_tree().root.add_child(health_item)
+		get_parent().add_child(health_item)
 
 	var death_effect = death_effect_scene.instantiate()
 	death_effect.position = global_position
-	get_tree().root.add_child(death_effect)
+	get_parent().add_child(death_effect)
 
 	queue_free()

@@ -5,6 +5,7 @@
 
 [node name="Level1" type="Node2D" node_paths=PackedStringArray("level_map")]
 script = ExtResource("1_hxhbl")
+level = 1
 level_map = NodePath("Level1_Map")
 
 [node name="LevelCooldown" type="Timer" parent="."]
@@ -12,5 +13,3 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Level1_Map" parent="." instance=ExtResource("5_13ofh")]
-
-[connection signal="timeout" from="LevelCooldown" to="." method="_on_level_cooldown_timeout"]

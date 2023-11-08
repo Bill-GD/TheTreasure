@@ -19,9 +19,9 @@ var tween: Tween
 var target: Player
 
 var level: int = 1
-var damage: int = BASE_DAMAGE * level
-var total_hp: int = BASE_HP * level
-var current_hp: int = total_hp
+@onready var damage: int = BASE_DAMAGE * level
+@onready var total_hp: int = BASE_HP * level
+@onready var current_hp: int = total_hp
 var speed: float = BASE_SPEED
 
 var is_attacking: bool = false
@@ -66,9 +66,18 @@ func _physics_process(_delta):
 
 func _on_died():
 	var health_item: Item = item_scene.instantiate()
-	health_item.position = global_position
+	health_item.position = global_position + Vector2.UP.rotated(randf_range(-PI, PI)) * 5
 	health_item.item_type = Item.ITEM_TYPE.HEALTH
-	get_tree().root.add_child(health_item)
+	get_parent().add_child(health_item)
+	
+	if level <= 2:
+		var weapon_item: Item = item_scene.instantiate()
+		weapon_item.position = global_position + Vector2.UP.rotated(randf_range(-PI, PI)) * 5
+		weapon_item.item_type = Item.ITEM_TYPE.WEAPON
+		match level:
+			1: weapon_item.weapon_type = 'Shotgun'
+			2: weapon_item.weapon_type = 'Assault'
+		get_parent().add_child(weapon_item)
 
 	var death_effect = death_effect_scene.instantiate()
 	death_effect.position = global_position
@@ -84,3 +93,5 @@ func _on_player_detection_changed():
 	if player_close_range:
 		match level:
 			1: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
+			2: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']
+			3: available_attacks = ['SHOOT_NORMAL', 'SHOOT_SPREAD', 'SPIN']

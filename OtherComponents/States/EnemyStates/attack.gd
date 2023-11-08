@@ -12,13 +12,13 @@ func update(_delta: float) -> void:
 		
 	if enemy_node.target:
 		var close_range_distance: float = enemy_node.get_node('PlayerDetection/CloseRange/CloseRangeShape').shape.radius
-		var target_direction: Vector2 = enemy_node.target.global_position - enemy_node.global_position
+		var target_direction: Vector2 = enemy_node.target.global_position - enemy_node.global_position if enemy_node.target else Vector2.ZERO
 		var distance_to_target: float = target_direction.length()
 		
 		enemy_node.sprite.rotation = target_direction.angle()
 		# if seen, not lost and is close -> circle, not close -> chase
 		if enemy_node.player_close_range:
-			enemy_node.move_direction = target_direction.orthogonal()
+			enemy_node.move_direction = target_direction.orthogonal() * enemy_node.circling_direction
 			if distance_to_target < close_range_distance:
 				enemy_node.move_direction += target_direction.normalized() * -(close_range_distance - distance_to_target)
 		else:

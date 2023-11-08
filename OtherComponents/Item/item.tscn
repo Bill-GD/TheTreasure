@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://csc8uvqf8ohri"]
+[gd_scene load_steps=9 format=3 uid="uid://csc8uvqf8ohri"]
 
 [ext_resource type="Script" path="res://OtherComponents/Item/item.gd" id="1_hdu1t"]
 [ext_resource type="Texture2D" uid="uid://ggr724fjchq4" path="res://Assets/Sprites/health_item.png" id="1_lwj3n"]
+[ext_resource type="Texture2D" uid="uid://ba0a6q2t46fid" path="res://Assets/Sprites/gun_item.png" id="3_p0b5l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dsiux"]
 radius = 12.0
@@ -13,6 +14,10 @@ region = Rect2(0, 0, 18, 15)
 [sub_resource type="AtlasTexture" id="AtlasTexture_78jyi"]
 atlas = ExtResource("1_lwj3n")
 region = Rect2(19, 0, 18, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur252"]
+atlas = ExtResource("3_p0b5l")
+region = Rect2(0, 0, 61, 39)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3orog"]
 animations = [{
@@ -26,6 +31,14 @@ animations = [{
 "loop": true,
 "name": &"health",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur252")
+}],
+"loop": true,
+"name": &"weapon",
+"speed": 5.0
 }]
 
 [node name="HealthItem" type="Node2D"]

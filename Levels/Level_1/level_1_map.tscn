@@ -58,5 +58,8 @@ curve = SubResource("Curve2D_glq52")
 position = Vector2(811, 263)
 rotation = 1.57649
 
-[node name="BossSpawnLocation" type="Marker2D" parent="."]
+[node name="BossSpawnpoint" type="Marker2D" parent="."]
 position = Vector2(4145, 807)
+
+[node name="PlayerSpawnpoint" type="Marker2D" parent="."]
+position = Vector2(445, 878)

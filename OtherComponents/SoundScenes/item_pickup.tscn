@@ -6,3 +6,5 @@
 [node name="ItemPickup" type="AudioStreamPlayer2D"]
 stream = ExtResource("1_ji2j3")
 script = ExtResource("2_0nnkw")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

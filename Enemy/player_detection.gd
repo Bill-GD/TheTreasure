@@ -41,6 +41,7 @@ func _on_close_range_body_entered(body: Node2D):
 	if body != null and body is Player:
 		enemy_node.player_close_range = true
 		if enemy_node is BossEnemy: player_detection_changed.emit()
+		if enemy_node is Enemy: enemy_node.circling_direction = [-1, 1][randi_range(0, 1)]
 
 func _on_close_range_body_exited(body: Node2D):
 	if body != null and body is Player:

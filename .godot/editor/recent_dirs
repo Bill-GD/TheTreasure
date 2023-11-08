@@ -1,5 +1,7 @@
-res://Levels
 res://Assets/Sprites
+res://Levels/Level_2
+res://Levels
+res://
 res://MainGame
 res://OtherComponents/States/BossStates
 res://OtherComponents/States/EnemyStates

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dimw7jtg02i2p"
-path="res://.godot/imported/ground_tiles_modern.png-9129ce4dc5df7922d616de77f6545d53.ctex"
+uid="uid://ba0a6q2t46fid"
+path="res://.godot/imported/gun_item.png-45f6863334223169b76a628d94959848.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/ground_tiles_modern.png"
-dest_files=["res://.godot/imported/ground_tiles_modern.png-9129ce4dc5df7922d616de77f6545d53.ctex"]
+source_file="res://Assets/Sprites/gun_item.png"
+dest_files=["res://.godot/imported/gun_item.png-45f6863334223169b76a628d94959848.ctex"]
 
 [params]
 

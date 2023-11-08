@@ -8,3 +8,5 @@ stream = ExtResource("1_kxnds")
 volume_db = -10.0
 pitch_scale = 0.7
 script = ExtResource("2_61r7i")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

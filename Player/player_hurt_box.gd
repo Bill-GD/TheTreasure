@@ -4,6 +4,7 @@ extends Area2D
 @onready var health_bar: HealthBar = get_parent().get_node('HealthBar')
 @onready var armor_bar: ProgressBar = get_parent().get_node('ArmorBar')
 
+
 func _on_body_entered(body: Node2D):
 	if body is Bullet and (body.shooter == null or not body.shooter is Player):
 		$SoundEffect.play()

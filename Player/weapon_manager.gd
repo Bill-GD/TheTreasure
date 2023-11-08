@@ -15,7 +15,7 @@ func _process(_delta):
 func change_weapon(new_weapon_name: String) -> void:
 	# var player: Player = get_parent()
 	if new_weapon_name in player.available_weapons and $WeaponSwapCooldown.is_stopped():
-		var current_weapon_node: Sprite2D = player.get_node('Sprite').get_children()[1]
+		var current_weapon_node: Sprite2D = player.get_node('Sprite').get_child(2)
 		
 		if new_weapon_name == player.current_weapon: player.damage = current_weapon_node.damage
 		else:
@@ -39,7 +39,7 @@ func change_weapon(new_weapon_name: String) -> void:
 
 func attack(shoot_direction: Vector2) -> void:
 	if $AttackCooldown.is_stopped():
-		get_parent().get_node('Sprite').get_children()[1].shoot(shoot_direction)
+		get_parent().get_node('Sprite').get_child(2).shoot(shoot_direction)
 		$AttackCooldown.start()
 
 func reset_weapon() -> void:

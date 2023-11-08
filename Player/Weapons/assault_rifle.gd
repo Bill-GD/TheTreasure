@@ -1,7 +1,7 @@
 extends Sprite2D
 
 var damage: int = 2
-var fire_rate: float = 0.15
+var fire_rate: float = 0.1
 
 func shoot(shoot_direction: Vector2) -> void:
 	$SoundEffect.play()

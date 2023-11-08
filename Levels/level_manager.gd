@@ -1,7 +1,7 @@
 extends Node2D
 
-@export var boss_scene: PackedScene = load("res://Enemy/Boss/boss.tscn")
-@export var enemy_scene: PackedScene = load("res://Enemy/enemy.tscn")
+var boss_scene: PackedScene = load("res://Enemy/Boss/boss.tscn")
+var enemy_scene: PackedScene = load("res://Enemy/enemy.tscn")
 
 @export var level: int
 @export var level_map: TileMap
@@ -11,6 +11,7 @@ var total_enemy_count: int
 
 func _ready():
 	player = get_parent().get_node('Player')
+	player.global_position = level_map.get_node('PlayerSpawnpoint').global_position
 	setup_enemy()
 
 func _on_enemy_died():
@@ -30,14 +31,22 @@ func setup_enemy(enemy_count: int = 10) -> void:
 		spawn_enemy(level_map.get_node('EnemyPath/EnemySpawn').position)
 	
 	var boss: BossEnemy = boss_scene.instantiate()
-	# boss.connect('died', _on_enemy_died)
 	boss.target = player
 	boss.level = level
-	boss.global_position = level_map.get_node('BossSpawnLocation').global_position
+	boss.global_position = level_map.get_node('BossSpawnpoint').global_position
 	add_child(boss)
 
 func spawn_enemy(spawn_location: Vector2) -> void:
 	var enemy: Enemy = enemy_scene.instantiate()
 	enemy.connect('died', _on_enemy_died)
+	enemy.level = level
 	enemy.global_position = spawn_location
 	add_child(enemy)
+
+func stop_all_enemies() -> void:
+	for child in get_children():
+		if child is Enemy or child is BossEnemy:
+			child.get_node('StateMachine').set_process(false)
+			child.get_node('StateMachine').set_physics_process(false)
+			child.set_process(false)
+			child.set_physics_process(false)
