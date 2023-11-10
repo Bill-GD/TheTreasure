@@ -12,9 +12,9 @@ script = ExtResource("1_83u2s")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HelpMenu" parent="UI" instance=ExtResource("2_mujgl")]
-
 [node name="MainMenu" parent="UI" instance=ExtResource("3_sbwmm")]
+
+[node name="HelpMenu" parent="UI" instance=ExtResource("2_mujgl")]
 
 [node name="InGameHud" parent="UI" instance=ExtResource("4_qkvpv")]
 

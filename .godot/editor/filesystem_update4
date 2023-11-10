@@ -1,3 +1,7 @@
 res://MainGame/game.tscn
-res://MainGame/main.gd
+res://UI/main_menu.tscn
+res://UI/help_menu.tscn
+res://UI/in_game_hud.tscn
+res://UI/pause_menu.tscn
 res://UI/game_over_menu.tscn
+res://MainGame/main.gd
