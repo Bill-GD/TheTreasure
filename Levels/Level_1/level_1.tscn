@@ -1,15 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bidysi0fe05rn"]
+[gd_scene load_steps=4 format=3 uid="uid://bidysi0fe05rn"]
 
 [ext_resource type="Script" path="res://Levels/level_manager.gd" id="1_hxhbl"]
+[ext_resource type="PackedScene" uid="uid://xgjhnsblbsg3" path="res://Levels/Level_2/level_2.tscn" id="2_dqghf"]
 [ext_resource type="PackedScene" uid="uid://u3d2ywqdkp70" path="res://Levels/Level_1/level_1_map.tscn" id="5_13ofh"]
 
 [node name="Level1" type="Node2D" node_paths=PackedStringArray("level_map")]
 script = ExtResource("1_hxhbl")
 level = 1
+next_level_packed = ExtResource("2_dqghf")
 level_map = NodePath("Level1_Map")
 
-[node name="LevelCooldown" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="Level1_Map" parent="." instance=ExtResource("5_13ofh")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(4162, 230)
+zoom = Vector2(1.75, 1.75)
+limit_left = 270
+limit_top = 125
+limit_right = 4300
+limit_bottom = 1525

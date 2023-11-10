@@ -811,6 +811,7 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_ltw88")
 
 [node name="WallStone" type="TileMap" groups=["wall"]]
+light_mask = 8
 z_index = 4
 tile_set = SubResource("TileSet_x7r3i")
 format = 2

@@ -1,0 +1,169 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk7pydd2rkkr8"]
+
+[ext_resource type="PackedScene" uid="uid://dtr7u42wps8dk" path="res://OtherComponents/HealthBar/health_bar.tscn" id="1_obl5u"]
+[ext_resource type="Texture2D" uid="uid://8ueyirasfwj2" path="res://Assets/Sprites/health_icon.png" id="1_sid2m"]
+[ext_resource type="Script" path="res://Player/armor_bar.gd" id="2_3ndvo"]
+[ext_resource type="Texture2D" uid="uid://br2ms63slu7tt" path="res://Assets/Sprites/armor_icon.png" id="3_gjqdb"]
+[ext_resource type="Texture2D" uid="uid://dx3p5ukcnojli" path="res://Assets/Sprites/pause_icon.png" id="5_ucp2c"]
+
+[node name="InGameHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerBars" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 15.0
+offset_right = 169.0
+offset_bottom = 55.0
+scale = Vector2(2, 2)
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerBars"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="PlayerBars/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="HealthIcon" type="TextureRect" parent="PlayerBars/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_sid2m")
+expand_mode = 5
+
+[node name="HealthBar" parent="PlayerBars/MarginContainer/GridContainer" instance=ExtResource("1_obl5u")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="PlayerBars/MarginContainer/GridContainer/HealthBar"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 1.0
+offset_right = 5166.0
+offset_bottom = 686.0
+scale = Vector2(0.02, 0.02)
+theme_override_font_sizes/font_size = 500
+text = "40 / 40
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArmorIcon" type="TextureRect" parent="PlayerBars/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_gjqdb")
+
+[node name="ArmorBar" parent="PlayerBars/MarginContainer/GridContainer" instance=ExtResource("1_obl5u")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+script = ExtResource("2_3ndvo")
+
+[node name="Label" type="Label" parent="PlayerBars/MarginContainer/GridContainer/ArmorBar"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 1.19995
+offset_right = 3740.0
+offset_bottom = 686.2
+scale = Vector2(0.02, 0.02)
+theme_override_font_sizes/font_size = 500
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 20.0
+offset_right = -24.0
+offset_bottom = 92.0
+grow_horizontal = 0
+icon = ExtResource("5_ucp2c")
+
+[node name="WeaponDisplay" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -275.0
+offset_top = -77.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="WeaponDisplay"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponDisplay/MarginContainer"]
+layout_mode = 2
+
+[node name="BoxContainer1" type="BoxContainer" parent="WeaponDisplay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponNumber1" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer1"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "1"
+horizontal_alignment = 1
+
+[node name="WeaponName" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Pistol"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoxContainer2" type="BoxContainer" parent="WeaponDisplay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponNumber2" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "2"
+horizontal_alignment = 1
+
+[node name="WeaponName" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Shotgun"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BoxContainer3" type="BoxContainer" parent="WeaponDisplay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponNumber3" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 5
+text = "3"
+horizontal_alignment = 1
+
+[node name="WeaponName" type="Label" parent="WeaponDisplay/MarginContainer/HBoxContainer/BoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Assault"
+horizontal_alignment = 1
+vertical_alignment = 1

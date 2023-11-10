@@ -29,3 +29,6 @@ func update(_delta: float) -> void:
 		if not boss_node.player_close_range:
 			state_machine.transition_to('Chase')
 			return
+
+func exit() -> void:
+	boss_node.speed = boss_node.BASE_SPEED

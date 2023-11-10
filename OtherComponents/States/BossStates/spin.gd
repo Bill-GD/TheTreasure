@@ -13,6 +13,7 @@ var current_frame: int = 0
 
 func enter(_msg := {}) -> void:
 	# print('Boss chosen attack: Spin')
+	current_frame = randi_range(0, frames_between_shots - 1)
 	weapon_node = boss_node.sprite.get_node('Weapon')
 	weapon_node.set_texture(assault_tex)
 	has_attacked = false
@@ -34,7 +35,7 @@ func update(_delta: float) -> void:
 
 func exit() -> void:
 	has_attacked = false
-	current_frame = 0
+	# current_frame = 0
 
 func spin():
 	is_spinning = true

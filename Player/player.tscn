@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://o47pxp8rypel"]
+[gd_scene load_steps=17 format=3 uid="uid://o47pxp8rypel"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_q23yu"]
 [ext_resource type="Texture2D" uid="uid://beg7ofr5cua4v" path="res://Assets/Sprites/player.png" id="2_omcrv"]
@@ -10,6 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://cgdnd8lragkbe" path="res://Player/weapon_manager.tscn" id="8_ah56o"]
 [ext_resource type="AudioStream" uid="uid://bl133f7j6f5nm" path="res://Assets/Sounds/run.wav" id="8_y8xfi"]
 [ext_resource type="Texture2D" uid="uid://c5pnukwnhi7wk" path="res://Assets/Sprites/dust_cloud.png" id="10_xl0dp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrk4v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fu2e1"]
+
+[sub_resource type="Gradient" id="Gradient_sxrap"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nlngc"]
+gradient = SubResource("Gradient_sxrap")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j5blo"]
 lifetime_randomness = 0.4
@@ -25,12 +37,7 @@ angle_min = 90.0
 angle_max = 180.0
 scale_min = 0.02
 scale_max = 0.07
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xwv8d"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrk4v"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fu2e1"]
+color_ramp = SubResource("GradientTexture1D_nlngc")
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 2
@@ -49,24 +56,12 @@ scale = Vector2(0.096, 0.096)
 texture = ExtResource("2_omcrv")
 offset = Vector2(0, 45)
 
-[node name="RunParticle" type="GPUParticles2D" parent="Sprite"]
-z_as_relative = false
-position = Vector2(4.3869e-05, 12)
-emitting = false
-amount = 4
-process_material = SubResource("ParticleProcessMaterial_j5blo")
-texture = ExtResource("10_xl0dp")
-lifetime = 0.3
-
 [node name="Pistol" parent="Sprite" instance=ExtResource("8_52ony")]
 position = Vector2(0.999908, -26)
 rotation = -3.14159
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xwv8d")
-
-[node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
 
 [node name="HealthBar" parent="." instance=ExtResource("3_fvq8p")]
 offset_left = -22.0
@@ -110,6 +105,15 @@ volume_db = -12.0
 [node name="RunSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_y8xfi")
 volume_db = -10.0
+
+[node name="RunParticle" type="GPUParticles2D" parent="."]
+z_index = 1
+z_as_relative = false
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_j5blo")
+texture = ExtResource("10_xl0dp")
+lifetime = 0.5
 
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="timeout" from="ArmorRegen" to="." method="_on_armor_regen_timeout"]

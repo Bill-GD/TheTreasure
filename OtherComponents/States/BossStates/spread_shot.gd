@@ -8,6 +8,7 @@ extends State
 
 var is_aiming: bool = false
 var has_attacked: bool = false
+var circling_direction: int
 
 
 func enter(_msg := {}):
@@ -17,6 +18,7 @@ func enter(_msg := {}):
 	has_attacked = false
 	is_aiming = true
 	attack_timer.start()
+	boss_node.speed = boss_node.BASE_SPEED / (3 - boss_node.level * 0.2)
 
 func update(_delta: float) -> void:
 	if has_attacked:
@@ -25,6 +27,7 @@ func update(_delta: float) -> void:
 	else:
 		var target_direction: Vector2 = boss_node.target.global_position - boss_node.global_position
 		if is_aiming:
+			boss_node.move_direction = target_direction.orthogonal() * circling_direction
 			boss_node.sprite.rotation = target_direction.angle()
 		else:
 			var shoot_direction: Vector2 = target_direction.normalized()

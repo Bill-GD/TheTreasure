@@ -1,3 +1,6 @@
+res://UI
+res://Player
+res://TileMaps
 res://Assets/Sprites
 res://Levels/Level_2
 res://Levels
@@ -10,11 +13,9 @@ res://Enemy
 res://OtherComponents/SoundScenes
 res://Assets
 res://OtherComponents/Item
-res://TileMaps
 res://OtherComponents
 res://OtherComponents/DeathEffect
 res://Bullet
-res://Player
 D:/Code/Godot/TheTreasure/Player/Weapon
 res://OtherComponents/DamageText
 res://Enemy/Boss

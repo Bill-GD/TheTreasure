@@ -15,8 +15,8 @@ signal died
 @onready var target: Player = get_parent().player
 
 const BASE_SPEED: float = 130
-const BASE_HP: int = 30
-const BASE_DAMAGE: int = 3
+const BASE_HP: int = 40
+const BASE_DAMAGE: int = 4
 
 var move_direction: Vector2
 var level: int = 1

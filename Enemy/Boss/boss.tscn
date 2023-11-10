@@ -53,10 +53,6 @@ texture = ExtResource("3_mkhbb")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_x37nr")
 
-[node name="AfterSpinCooldown" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -121,7 +117,6 @@ one_shot = true
 [node name="Spin" parent="StateMachine/Attack/StateMachine" instance=ExtResource("16_xsrkq")]
 
 [connection signal="died" from="." to="." method="_on_died"]
-[connection signal="timeout" from="AfterSpinCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
 [connection signal="mouse_entered" from="HurtBox" to="HurtBox" method="_on_mouse_entered"]
 [connection signal="timeout" from="StateMachine/Attack/StateMachine/ChooseAttack/AttackCooldown" to="StateMachine/Attack/StateMachine/ChooseAttack" method="_on_attack_cooldown_timeout"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7gfamauipcop"]
+
+[ext_resource type="Texture2D" uid="uid://d1ud1py28xesr" path="res://Assets/Sprites/ground_tile_stone.png" id="1_3e38p"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ydhjv"]
+texture = ExtResource("1_3e38p")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_r7v22"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_ydhjv")
+
+[node name="GroundStone" type="TileMap"]
+tile_set = SubResource("TileSet_r7v22")
+format = 2

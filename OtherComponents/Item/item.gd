@@ -33,6 +33,7 @@ func _on_area_2d_body_entered(body: Node2D):
 				item_pickup_sound.position = global_position
 				get_parent().add_child(item_pickup_sound)
 				body.available_weapons.append(weapon_type)
+				body.update_weapon_displays()
 				body.add_popup_text('New weapon: ' + weapon_type, Color(1, 1, 1))
 		
 		queue_free()

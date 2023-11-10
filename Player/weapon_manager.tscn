@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgdnd8lragkbe"]
+[gd_scene load_steps=2 format=3 uid="uid://cgdnd8lragkbe"]
 
 [ext_resource type="Script" path="res://Player/weapon_manager.gd" id="1_vylxf"]
-[ext_resource type="PackedScene" uid="uid://dq6joq70c5llr" path="res://OtherComponents/SingleBulletAttack/single_bullet_attack.tscn" id="2_8t25f"]
 
 [node name="WeaponManager" type="Node2D"]
 script = ExtResource("1_vylxf")
-
-[node name="SingleBulletAttack" parent="." instance=ExtResource("2_8t25f")]
 
 [node name="WeaponSwapCooldown" type="Timer" parent="."]
 one_shot = true

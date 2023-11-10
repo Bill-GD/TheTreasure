@@ -1,6 +1,6 @@
 extends Sprite2D
 
-var damage: int = 2
+var damage: int = 3
 var fire_rate: float = 0.5
 
 func shoot(shoot_direction: Vector2) -> void:
