@@ -46,8 +46,14 @@ texture = ExtResource("3_mxf2o")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pds5s")
 
+[node name="HealthBar" parent="." instance=ExtResource("5_2lkjo")]
+offset_left = -5.0
+offset_top = -27.0
+offset_right = 215.0
+offset_bottom = 34.0
+rotation = 0.0
+
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("3_y2fat")
@@ -59,15 +65,7 @@ shape = SubResource("CircleShape2D_5ulcu")
 [node name="SoundEffect" type="AudioStreamPlayer2D" parent="HurtBox"]
 stream = ExtResource("4_ov856")
 
-[node name="HealthBar" parent="." instance=ExtResource("5_2lkjo")]
-offset_left = -5.0
-offset_top = -27.0
-offset_right = 215.0
-offset_bottom = 34.0
-rotation = 0.0
-
 [node name="PlayerDetection" parent="." instance=ExtResource("5_65h6i")]
-visible = false
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("6_av5fk")]
 
@@ -93,3 +91,4 @@ initial_state = NodePath("Idle")
 [connection signal="died" from="." to="." method="_on_died"]
 [connection signal="body_entered" from="HurtBox" to="HurtBox" method="_on_body_entered"]
 [connection signal="mouse_entered" from="HurtBox" to="HurtBox" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="HurtBox" to="HurtBox" method="_on_mouse_exited"]

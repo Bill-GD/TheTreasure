@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj7ppf4vgu440"]
+
+[ext_resource type="Script" path="res://Levels/level_manager.gd" id="1_3lym6"]
+[ext_resource type="PackedScene" uid="uid://cmn4sm2e6f1pk" path="res://Levels/Level_3/level_3_map.tscn" id="2_50k8a"]
+
+[node name="Level3" type="Node2D" node_paths=PackedStringArray("level_map")]
+script = ExtResource("1_3lym6")
+level = 3
+level_map = NodePath("Level3_Map")
+
+[node name="Level3_Map" parent="." instance=ExtResource("2_50k8a")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(4162, 230)
+zoom = Vector2(1.5, 1.5)
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1600
+editor_draw_screen = false
+editor_draw_limits = true

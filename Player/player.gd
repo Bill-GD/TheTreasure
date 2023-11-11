@@ -8,7 +8,6 @@ extends CharacterBody2D
 @onready var armor_regen_timer: Timer = $ArmorRegen
 @onready var armor_regen_delay_timer: Timer = $ArmorRegenDelay
 
-
 @onready var ui_health_bar: HealthBar = get_tree().root.get_node('Game/UI/InGameHud/PlayerBars/MarginContainer/GridContainer/HealthBar')
 @onready var ui_armor_bar: ProgressBar = get_tree().root.get_node('Game/UI/InGameHud/PlayerBars/MarginContainer/GridContainer/ArmorBar')
 
@@ -26,8 +25,8 @@ const BASE_DAMAGE: int = 1
 var level: int = 0
 var total_hp: int
 var total_armor: int
-var current_hp: int
-var current_armor: int
+@onready var current_hp: int = BASE_HP
+@onready var current_armor: int = BASE_ARMOR
 var damage: int = 0
 # 'Pistol', 'Shotgun', 'Assault'
 var available_weapons: Array[String] = ['Pistol']
@@ -83,10 +82,12 @@ func _on_died() -> void:
 
 func level_up() -> void:
 	level += 1
-	total_hp = BASE_HP + 10 * (level - 1)
-	total_armor = BASE_ARMOR + 4 * (level - 1)
-	current_hp = total_hp
-	current_armor = total_armor
+	total_hp = BASE_HP + 15 * (level - 1)
+	total_armor = BASE_ARMOR + 8 * (level - 1)
+	# current_hp = total_hp
+	# current_armor = total_armor
+	current_hp += min(total_hp - current_hp, 15)
+	current_armor += min(total_armor - current_armor, 8)
 	update_armor_displays()
 	update_health_displays()
 

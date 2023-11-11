@@ -18,7 +18,8 @@ func enter(_msg := {}):
 	has_attacked = false
 	is_aiming = true
 	attack_timer.start()
-	boss_node.speed = boss_node.BASE_SPEED / (3 - boss_node.level * 0.2)
+	circling_direction = [-1, 1][randi_range(0, 1)]
+	boss_node.speed = boss_node.BASE_SPEED / (2 - boss_node.level * 0.2)
 
 func update(_delta: float) -> void:
 	if has_attacked:

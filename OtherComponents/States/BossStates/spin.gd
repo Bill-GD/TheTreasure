@@ -18,6 +18,7 @@ func enter(_msg := {}) -> void:
 	weapon_node.set_texture(assault_tex)
 	has_attacked = false
 	boss_node.sprite.rotation = (boss_node.target.global_position - boss_node.global_position).angle()
+	boss_node.speed = 0 + (boss_node.level - 1) * (boss_node.BASE_SPEED / 2)
 	spin()
 
 func update(_delta: float) -> void:
@@ -26,6 +27,8 @@ func update(_delta: float) -> void:
 		return
 	else:
 		if is_spinning:
+			var target_direction: Vector2 = boss_node.target.global_position - boss_node.global_position
+			boss_node.move_direction = target_direction
 			if current_frame == 0:
 				boss_node.get_node('ShootSound').play()
 				boss_node.get_node('SingleBulletAttack').shoot_bullet(boss_node, Vector2.RIGHT.rotated(boss_node.sprite.rotation), weapon_node.global_position + Vector2.RIGHT.rotated(boss_node.sprite.rotation) * weapon_node.get_rect().size.x / 10, 100)

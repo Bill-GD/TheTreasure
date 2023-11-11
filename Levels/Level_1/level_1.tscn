@@ -14,7 +14,7 @@ level_map = NodePath("Level1_Map")
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(4162, 230)
-zoom = Vector2(1.75, 1.75)
+zoom = Vector2(1.5, 1.5)
 limit_left = 270
 limit_top = 125
 limit_right = 4300

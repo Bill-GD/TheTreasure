@@ -1,6 +1,9 @@
+Control
+Label
+TileMap
+Node2D
 BoxContainer
 MarginContainer
-Label
 Panel
 HBoxContainer
 PanelContainer
@@ -8,7 +11,6 @@ TextureRect
 TextureButton
 Button
 GridContainer
-Control
 RichTextLabel
 CanvasLayer
 CanvasModulate
@@ -19,7 +21,6 @@ CollisionShape2D
 Area2D
 RayCast2D
 PointLight2D
-TileMap
 Camera2D
 GPUParticles2D
 Marker2D
@@ -29,4 +30,3 @@ Node
 Timer
 State
 AudioStreamPlayer2D
-AudioStreamPlayer

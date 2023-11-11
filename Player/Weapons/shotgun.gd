@@ -8,5 +8,5 @@ func shoot(shoot_direction: Vector2) -> void:
 
 	$SoundEffect.play()
 	
-	$SingleBulletAttack.shoot_bullet(player, shoot_direction, global_position + shoot_direction * get_rect().size.x / 5 + (shoot_direction.orthogonal() * -1.8))
-	$SingleBulletAttack.shoot_bullet(player, shoot_direction, global_position + shoot_direction * get_rect().size.x / 5 + (shoot_direction.orthogonal() * 0.4))
+	$SingleBulletAttack.shoot_bullet(player, Vector2.RIGHT.rotated(shoot_direction.angle() + (PI / 90)), global_position + shoot_direction * get_rect().size.x / 5 + (shoot_direction.orthogonal() * -1.8))
+	$SingleBulletAttack.shoot_bullet(player, Vector2.RIGHT.rotated(shoot_direction.angle() - (PI / 90)), global_position + shoot_direction * get_rect().size.x / 5 + (shoot_direction.orthogonal() * 0.4))

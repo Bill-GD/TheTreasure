@@ -1,9 +1,11 @@
+res://TileMaps
+res://OtherComponents/EnemyHoverStat
+res://Levels
+res://Levels/Level_3
 res://UI
 res://Player
-res://TileMaps
 res://Assets/Sprites
 res://Levels/Level_2
-res://Levels
 res://
 res://MainGame
 res://OtherComponents/States/BossStates
@@ -18,5 +20,4 @@ res://OtherComponents/DeathEffect
 res://Bullet
 D:/Code/Godot/TheTreasure/Player/Weapon
 res://OtherComponents/DamageText
-res://Enemy/Boss
 D:/Microsoft VS Code

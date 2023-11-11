@@ -77,16 +77,20 @@ func _on_current_level_boss_died() -> void:
 	$Player.level_up()
 	if current_level.next_level_packed:
 		can_switch_level = true
-	else:
-		$UI/GameOverMenu.show()
 
-func change_level():
+func change_level() -> void:
 	if can_switch_level:
 		var next_level = (current_level.next_level_packed as PackedScene).instantiate()
 		current_level.queue_free()
 		add_child(next_level)
 		can_switch_level = false
 
-func update_current_level(level_node: Node2D):
+func update_current_level(level_node: Node2D) -> void:
 	current_level = level_node
 	print('Current level: %s' % current_level)
+
+func update_level_notification(new_text: String) -> void:
+	$UI/InGameHud/Notification/LevelNotification.text = new_text
+
+func update_enemy_notification(new_text: String) -> void:
+	$UI/InGameHud/Notification/EnemyNotification.text = new_text

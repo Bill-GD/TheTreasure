@@ -167,3 +167,39 @@ size_flags_vertical = 5
 text = "Assault"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Notification" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 496.0
+offset_top = 16.0
+offset_right = 536.0
+offset_bottom = 56.0
+
+[node name="LevelNotification" type="Label" parent="Notification"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 8269.0
+offset_bottom = 950.0
+grow_horizontal = 2
+scale = Vector2(0.04, 0.04)
+theme_override_font_sizes/font_size = 600
+text = "Level "
+horizontal_alignment = 1
+
+[node name="EnemyNotification" type="Label" parent="Notification"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 8269.0
+offset_bottom = 990.0
+grow_horizontal = 2
+scale = Vector2(0.04, 0.04)
+theme_override_font_sizes/font_size = 600
+text = "Enemy remaining: "
+horizontal_alignment = 1
