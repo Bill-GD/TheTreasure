@@ -13,7 +13,7 @@ signal died
 
 const BASE_SPEED: float = 150
 const BASE_HP: int = 200
-const BASE_DAMAGE: int = 7
+const BASE_DAMAGE: int = 6
 
 var tween: Tween
 var target: Player

@@ -28,6 +28,7 @@ collision_mask = 11
 script = ExtResource("1_jenkf")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
 
 [node name="Body" type="Sprite2D" parent="Sprite"]
 modulate = Color(1, 0.337255, 0.270588, 1)
@@ -66,6 +67,7 @@ shape = SubResource("CircleShape2D_5ulcu")
 stream = ExtResource("4_ov856")
 
 [node name="PlayerDetection" parent="." instance=ExtResource("5_65h6i")]
+visible = false
 
 [node name="SingleBulletAttack" parent="." instance=ExtResource("6_av5fk")]
 

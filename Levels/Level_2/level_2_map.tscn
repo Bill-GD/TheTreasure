@@ -71,6 +71,3 @@ position = Vector2(1246, 1152)
 
 [node name="PlayerSpawnpoint" type="Marker2D" parent="."]
 position = Vector2(-15, 80)
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.662745, 0.662745, 0.662745, 1)

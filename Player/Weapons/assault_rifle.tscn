@@ -6,7 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://dk66p8bjnir0u" path="res://Assets/Sounds/assault_shot.wav" id="4_jc48r"]
 
 [node name="Assault" type="Sprite2D"]
-rotation = -1.5708
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_b5qll")
 script = ExtResource("2_7jbfj")

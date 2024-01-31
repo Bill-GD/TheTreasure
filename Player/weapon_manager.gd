@@ -17,7 +17,8 @@ func change_weapon(new_weapon_name: String) -> void:
 	if new_weapon_name in player.available_weapons and $WeaponSwapCooldown.is_stopped():
 		var current_weapon_node: Sprite2D = player.get_node('Sprite').get_child(1)
 		
-		if new_weapon_name == player.current_weapon: player.damage = current_weapon_node.damage + player.BASE_DAMAGE * (player.level - 1) + (player.level - 1)
+		if new_weapon_name == player.current_weapon:
+			player.damage = current_weapon_node.damage + (player.BASE_DAMAGE + 1) * player.level
 		else:
 			var new_weapon_node: Sprite2D
 
@@ -34,7 +35,7 @@ func change_weapon(new_weapon_name: String) -> void:
 			player.get_node('Sprite').remove_child(current_weapon_node)
 			player.get_node('Sprite').add_child(new_weapon_node)
 
-			player.damage = new_weapon_node.damage + player.BASE_DAMAGE * (player.level - 1) + (player.level - 1)
+			player.damage = new_weapon_node.damage + (player.BASE_DAMAGE + 1) * player.level
 			player.current_weapon = new_weapon_name
 
 func attack(shoot_direction: Vector2) -> void:

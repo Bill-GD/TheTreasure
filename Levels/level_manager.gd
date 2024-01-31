@@ -66,7 +66,8 @@ func _on_treasure_area_entered(body: Node2D) -> void:
 	if body is Player:
 		get_tree().root.get_node('Game/UI/GameOverMenu').show()
 
-func setup_enemy(enemy_count: int = 10 + 5 * (level - 1)) -> void:
+func setup_enemy(enemy_count: int = 10) -> void:
+	# enemy_count += 5 * (level - 1)
 	var boss: BossEnemy = boss_scene.instantiate()
 	boss.target = player
 	boss.level = level

@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cfeclbft00y" path="res://UI/pause_menu.tscn" id="5_psp1q"]
 [ext_resource type="PackedScene" uid="uid://cjiplb8ehus1p" path="res://UI/game_over_menu.tscn" id="6_0qut0"]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_83u2s")
 
 [node name="UI" type="CanvasLayer" parent="."]

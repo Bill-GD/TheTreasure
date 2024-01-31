@@ -6,7 +6,6 @@
 [ext_resource type="AudioStream" uid="uid://dt4d6mywf7gny" path="res://Assets/Sounds/shotgun_shot.wav" id="4_fbgtj"]
 
 [node name="Shotgun" type="Sprite2D"]
-rotation = -1.5708
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_4huqk")
 script = ExtResource("2_x602t")

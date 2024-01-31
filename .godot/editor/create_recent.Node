@@ -1,7 +1,8 @@
+TileMap
+Sprite2D
+Node2D
 Control
 Label
-TileMap
-Node2D
 BoxContainer
 MarginContainer
 Panel
@@ -24,7 +25,6 @@ PointLight2D
 Camera2D
 GPUParticles2D
 Marker2D
-Sprite2D
 AnimatedSprite2D
 Node
 Timer

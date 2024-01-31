@@ -11,7 +11,7 @@ var hit_wall_sound_scene: PackedScene = load("res://OtherComponents/SoundScenes/
 signal hit_entity
 signal hit_wall
 
-const BASE_SPEED: float = 800.0
+const BASE_SPEED: float = 1000.0
 const BASE_DAMAGE: int = 1
 
 ## Use this to override speed, else use default speed.

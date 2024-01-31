@@ -25,30 +25,29 @@ gradient = SubResource("Gradient_sxrap")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j5blo"]
 lifetime_randomness = 0.4
+particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 10.0
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
-angular_velocity_min = 90.0
-angular_velocity_max = 180.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 angle_min = 90.0
 angle_max = 180.0
+angular_velocity_min = 90.0
+angular_velocity_max = 180.0
+gravity = Vector3(0, 0, 0)
 scale_min = 0.02
 scale_max = 0.07
 color_ramp = SubResource("GradientTexture1D_nlngc")
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 2
-rotation = 1.5708
+rotation = 1.57079
 collision_mask = 11
 motion_mode = 1
 platform_floor_layers = 4294967040
 platform_wall_layers = 8
 script = ExtResource("1_q23yu")
 
-[node name="Sprite" type="Node2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
 
 [node name="Body" type="Sprite2D" parent="Sprite"]
 rotation = 3.14159
@@ -57,8 +56,8 @@ texture = ExtResource("2_omcrv")
 offset = Vector2(0, 45)
 
 [node name="Pistol" parent="Sprite" instance=ExtResource("8_52ony")]
-position = Vector2(0.999908, -26)
-rotation = -3.14159
+position = Vector2(2.00017, -27)
+rotation = 3.14159
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xwv8d")
